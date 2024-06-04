@@ -1,0 +1,77 @@
+{% extends "store/master.html" %}
+{% block content %}
+<br><br><br><br>
+<div class="container py-5">
+    <h1 class="mb-4 text-center">Shopping Cart</h1>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-primary">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr data-cart-item-id="{{ item.id }}">
+                <td>{{ item.product.name }}</td>
+                <td class="product-price" data-base-price="{{ item.product.price }}">Price: ${{ item.product.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td class="item-total-price" data-base-total="{{ item.total_price }}">Total: ${{ item.total_price }}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Quantity controls">
+                        <button class="btn btn-sm btn-outline-primary update-quantity" data-action="increase">+</button>
+                        <button class="btn btn-sm btn-outline-secondary update-quantity" data-action="decrease">-</button>
+                        <button class="btn btn-sm btn-outline-danger remove-item">Remove</button> <!-- Add this button -->
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3 class="text-right ">Total: $<span id="cart-total">{{ total_price }}</span></h3>
+    <div class="text-right">
+        <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">Proceed to Checkout</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.update-quantity').click(function(){
+            var action = $(this).data('action');
+            var cartItemId = $(this).closest('tr').data('cart-item-id');
+            $.ajax({
+                url: '{% url "update_cart_item" 0 %}'.replace('0', cartItemId),
+                data: {'action': action},
+                success: function(data) {
+                    $('tr[data-cart-item-id="' + cartItemId + '"] .item-total-price').text('$' + data.total_price);
+                    var cartTotal = 0;
+                    $('.item-total-price').each(function(){
+                        cartTotal += parseFloat($(this).text().replace('$', ''));
+                    });
+                    $('#cart-total').text(cartTotal.toFixed(2));
+                }
+            });
+        });
+
+        $('.remove-item').click(function(){
+            var cartItemId = $(this).closest('tr').data('cart-item-id');
+            $.ajax({
+                url: '{% url "update_cart_item" 0 %}'.replace('0', cartItemId), // Adjust the URL to your remove_cart_item view
+                success: function(data) {
+                    $('tr[data-cart-item-id="' + cartItemId + '"]').remove();
+                    var cartTotal = 0;
+                    $('.item-total-price').each(function(){
+                        cartTotal += parseFloat($(this).text().replace('$', ''));
+                    });
+                    $('#cart-total').text(cartTotal.toFixed(2));
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

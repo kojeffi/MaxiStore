@@ -1,0 +1,54 @@
+{% extends 'store/master.html' %}
+{% block content %}
+    {% load static %}
+    {% load django_bootstrap5 %}
+    <br><br><br>
+    <div class="container py-5">
+        <div class="row">
+            <!-- Personal Information Column -->
+            <div class="col-lg-6 mb-5">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">My Personal Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="symbol symbol-50px me-3">
+                                {% if user.profile.profile_photo %}
+                                    <img class="rounded-circle" src="{{ user.profile.profile_photo.url }}" alt="Profile Photo">
+                                {% else %}
+                                    <img class="rounded-circle" src="{% static 'assets1/img/profile_photos/avitor1.png' %}" alt="Default Profile Photo">
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h5 class="mb-0">{{ user.username }}</h5>
+                                <p class="text-muted">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <p><strong>About Me:</strong> {{ user.profile.about }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update Profile Column -->
+            <div class="col-lg-6 mb-5">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="card-title">Update Your Profile</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {% bootstrap_form form %}
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-warning text-white">Update Profile</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

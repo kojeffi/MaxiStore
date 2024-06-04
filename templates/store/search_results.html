@@ -1,0 +1,15 @@
+<!-- store/templates/store/search_results.html -->
+{% extends "store/master.html" %}
+
+{% block content %}
+  <h1>Search Results for "{{ query }}"</h1>
+  {% if results %}
+    <ul>
+      {% for product in results %}
+        <li><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+{% endblock %}
