@@ -22,23 +22,14 @@ from . import views
 
 #To show media file
 from django.conf import settings
-from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
+from django.contrib.staticfiles.urls import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user_app/', include('user_app.urls')),
     path('', include('store.urls')),
     path('ml/', include('ml.urls')),
-]
-urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
-
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-
-
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
