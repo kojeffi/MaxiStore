@@ -192,6 +192,22 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Or the directory where collectstatic should place static files
+
+
+# Setting up media file handling
+
+# Media files (user uploaded files)
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
