@@ -30,7 +30,7 @@ def dashboard(request):
     user = request.user
     username = user.username
     email = user.email
-    return render(request, 'index.html', {'username': username, 'email': email})
+    return render(request, 'store/index.html', {'username': username, 'email': email})
 
 @login_required
 def change_password(request):
@@ -41,7 +41,7 @@ def change_password(request):
             return redirect('profile-url')
     else:
         form = UserProfileForm()
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'store/index.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
