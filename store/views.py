@@ -7,7 +7,7 @@ from django.contrib.auth import login, authenticate
 
 def index(request):
     # Fetch the first two products
-    products = Product.objects.all()[:3]
+    products = Product.objects.all()[:2]
     return render(request, 'store/index.html', {'products': products})
 
 

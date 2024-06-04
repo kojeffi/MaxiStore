@@ -1,220 +1,87 @@
 {% extends 'store/master.html' %}
 {% load static %}
     {% block content %}
-    <section id="billboard" class="position-relative overflow-hidden bg-light-blue">
-      <div class="swiper main-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="container">
-              <div class="row d-flex align-items-center">
-                <div class="col-md-6">
-                  <div class="banner-content">
-                    <h3 class="display-2 text-dark pb-5">Your one-stop shop for all your needs.</h3>
-                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
-                  </div>
-                </div>
-                <div class="col-md-5">
-                  <div class="image-holder">
-                    <img src="{% static 'images/banner-image.png' %}" alt="banner">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="container">
-              <div class="row d-flex flex-wrap align-items-center">
-                <div class="col-md-6">
-                  <div class="banner-content">
-                    <h1 class="display-2 text-uppercase text-dark pb-5">Technology Hack You Won't Get</h1>
-                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
-                  </div>
-                </div>
-                <div class="col-md-5">
-                  <div class="image-holder">
-                    <img src="{% static 'images/banner-image.png' %}" alt="banner">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-icon swiper-arrow swiper-arrow-prev">
-        <svg class="chevron-left">
-          <use xlink:href="#chevron-left" />
-        </svg>
-      </div>
-      <div class="swiper-icon swiper-arrow swiper-arrow-next">
-        <svg class="chevron-right">
-          <use xlink:href="#chevron-right" />
-        </svg>
-      </div>
-    </section>
-
-    <section id="company-services" class="padding-large">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 pb-3">
-            <div class="icon-box d-flex flex-column align-items-center text-center">
-              <div class="icon-box-icon mb-3">
-                <svg class="cart-outline">
-                  <use xlink:href="#cart-outline" />
-                </svg>
-              </div>
-              <div class="icon-box-content">
-                <h4 class="card-title text-uppercase text-dark">Free delivery</h4>
-                <p>Get free delivery on all orders.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 pb-3">
-            <div class="icon-box d-flex flex-column align-items-center text-center">
-              <div class="icon-box-icon mb-3">
-                <svg class="quality">
-                  <use xlink:href="#quality" />
-                </svg>
-              </div>
-              <div class="icon-box-content">
-                <h4 class="card-title text-uppercase text-dark">Quality guarantee</h4>
-                <p>Enjoy our quality guarantee for all products.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 pb-3">
-            <div class="icon-box d-flex flex-column align-items-center text-center">
-              <div class="icon-box-icon mb-3">
-                <svg class="price-tag">
-                  <use xlink:href="#price-tag" />
-                </svg>
-              </div>
-              <div class="icon-box-content">
-                <h4 class="card-title text-uppercase text-dark">Daily offers</h4>
-                <p>Check out our daily offers for great deals!</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 pb-3">
-            <div class="icon-box d-flex flex-column align-items-center text-center">
-              <div class="icon-box-icon mb-3">
-                <svg class="shield-plus">
-                  <use xlink:href="#shield-plus" />
-                </svg>
-              </div>
-              <div class="icon-box-content">
-                <h4 class="card-title text-uppercase text-dark">100% secure payment</h4>
-                <p>Rest assured, your payment is 100% secure.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <style>
-#company-services .icon-box {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    min-height: 200px;
-    max-width: 250px;
-    margin: 0 auto;
+      #billboard {
+    background: url('{% static "images/hero.jpeg" %}') no-repeat center center/cover;
+    padding: 100px 0; /* Adjust padding as needed */
 }
 
-#company-services .icon-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 6px 6px rgba(0, 0, 0, 0.19);
+#billboard .banner-content h3 {
+    color: #fff; /* Adjust text color for better contrast with the background */
 }
 
-#company-services .icon-box-icon {
-    background: #f8f9fa;
-    border-radius: 50%;
-    padding: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#billboard .btn {
+    margin-top: 20px;
 }
 
-#company-services .icon-box-icon svg {
-    width: 24px;
-    height: 24px;
-    fill: #54a762;
-    transition: fill 0.3s;
+#billboard .image-holder img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
-#company-services .icon-box:hover .icon-box-icon svg {
-    fill: #58ac5f;
-}
+    </style>
+    <section id="billboard" class="position-relative overflow-hidden bg-light-blue">
+      <div class="container">
+          <div class="row d-flex align-items-center">
+              <div class="col-md-6">
+                  <div class="banner-content">
+                    <br><br><br><br><br>
+                        <h1 class="text-white" style="font-weight: 200;font-size: 60px;"><b>Naturally protected for ultimate comfort</b></h1>
+                        <p class="text-white" style="font-size: 20px;">Fast and effective insect defence with our all-natural MountGuard range 
+                        that is kind to your horse and the environment.</p>
+                        <a href="{% url 'product_list' %}" class="btn btn-medium 
+                        text-uppercase btn-rounded text-white" 
+                        style="background-color: #79b17d;">View The Range</a>
+                  </div>
+              </div>
+              <div class="col-md-5">
+                  <div class="image-holder">
+                    
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+ 
+  <section id="company-services" class="padding-large" style="background-color: #ffffff;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <h1 class="text-center">The battle against bugs</h1>
+          <p class="text-center"> Insects can turn the joy of horse ownership into a constant battle against irritation and health risks. Traditional repellents often contain harsh chemicals, adding to your worries. MountGuard's revolutionary micellar technology is an effective, all-natural solution that gives your horse instant comfort. It's safe for your horse and the environment.
+          </p>
+          </div>
+          </div>
+          </div>
+          </section>
 
-#company-services .card-title {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-#company-services .icon-box-content p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #6c757d;
-}
-
-@media (max-width: 767px) {
-    #company-services .icon-box {
-        margin-bottom: 20px;
-        padding: 15px;
-    }
-
-    #company-services .icon-box-icon {
-        padding: 10px;
-    }
-
-    #company-services .icon-box-icon svg {
-        width: 20px;
-        height: 20px;
-    }
-}
-</style>
-
-
-
-    <section id="mobile-products" class="product-store position-relative padding-large no-padding-top">
+    <section id="mobile-products" class="product-store 
+    position-relative padding-large no-padding-top" style="background-color: #ffffff;">
       <div class="container">
         <div class="row">
           <div class="display-header d-flex justify-content-between align-items-center pb-3">
-            <h2 class="display-7 text-dark text-uppercase">Latest Hot Products</h2>
+            <h2 class="display-7 text-dark text-uppercase">Equine Protection</h2>
             <div class="btn-right">
-              <a href="{% url 'product_list' %}" class="btn btn-medium btn-primary text-uppercase">Go to Shop</a>
             </div>
           </div>
           <div class="row">
             {% for product in products %}
-            <div class="col-md-6 col-lg-4 mb-4">
+            <div class="col-md-6 col-lg-6 mb-4">
+              <a href="">
               <div class="product-card position-relative shadow-sm p-3 bg-white rounded">
                 <div class="image-holder text-center">
                   <img src="{{ product.image.url }}" alt="{{ product.title }}" class="img-fluid rounded">
                 </div>
                 <div class="card-detail text-center pt-3">
                   <h3 class="card-title text-uppercase">
-                    <a href="#">{{ product.title }}</a>
+                    <a href="#">{{ product.name }}</a>
                   </h3>
-                  <span class="item-price text-primary product-price" data-base-price="{{ product.price }}">Price: ${{ product.price }}</span>
-                </div>
-                <div class="cart-button mt-2 text-center">
-                  <a href="{% url 'add_to_cart' product.id %}" class="btn btn-small btn-black text-uppercase">Add to Cart 
-                    <svg class="cart-outline" style="font-size: 16px;">
-                      <use xlink:href="#cart-outline"></use>
-                    </svg>
-                  </a>
+                  <span class="item-price text-black product-price" data-base-price="{{ product.price }}">Price: ${{ product.price }}</span>
                 </div>
               </div>
+            </a>
             </div>
             {% endfor %}
           </div>
@@ -227,7 +94,7 @@
       #mobile-products .product-card {
           transition: transform 0.3s, box-shadow 0.3s;
           background-color: #fff;
-          padding: 20px;
+          padding: 10px;
           border-radius: 8px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           overflow: hidden;
@@ -298,92 +165,74 @@
       }
       </style>
       
-    <section id="testimonials" class="position-relative">
+  
+    <section id="company-services" class="padding-large" style="background-color: #ffffff;">
       <div class="container">
-        <div class="row">
-          <div class="review-content position-relative">
-            <div class="swiper-icon swiper-arrow swiper-arrow-prev position-absolute d-flex align-items-center">
-              <svg class="chevron-left">
-                <use xlink:href="#chevron-left" />
-              </svg>
-            </div>
-            <div class="swiper testimonial-swiper">
-              <div class="quotation text-center">
-                <svg class="quote">
-                  <use xlink:href="#quote" />
-                </svg>
-              </div>
-              <div class="swiper-wrapper">
-                <div class="swiper-slide text-center d-flex justify-content-center">
-                  <div class="review-item col-md-10">
-                    <i class="icon icon-review"></i>
-                    <blockquote>“Time flies when you are having fun! The experience was amazing and the service was top-notch. Highly recommended!”</blockquote>
-                    <div class="rating">
-                      <svg class="star star-fill">
-                        <use xlink:href="#star-fill"></use>
-                      </svg>
-                      <svg class="star star-fill">
-                        <use xlink:href="#star-fill"></use>
-                      </svg>
-                      <svg class="star star-fill">
-                        <use xlink:href="#star-fill"></use>
-                      </svg>
-                      <svg class="star star-half">
-                        <use xlink:href="#star-half"></use>
-                      </svg>
-                      <svg class="star star-empty">
-                        <use xlink:href="#star-empty"></use>
-                      </svg>
-                    </div>
-                    <div class="author-detail">
-                      <div class="name text-dark text-uppercase pt-2">Emma Chamberlin</div>
-                    </div>
+          <h1 class="text-center">People are saying...</h1>
+          <br>
+          <div class="row">
+              <div class="col-lg-6 col-md-6 mb-4">
+                  <div class="card" style="background-color: #f8f9fa;">
+                      <div class="card-body">
+                          <p>
+                              As a horse owner, warm weather always meant a battle with flies irritating my horse. Since discovering MountGuard, that's changed. The immediate protection it offers is astounding, keeping my horse calm and comfortable. MountGuard is now our go-to solution.
+                          </p>
+                          <p class="text-dark">Eleanor Fitzroy</p>
+                      </div>
                   </div>
-                </div>
-                <div class="swiper-slide text-center d-flex justify-content-center">
-                  <div class="review-item col-md-10">
-                    <i class="icon icon-review"></i>
-                    <blockquote>“A blog is a digital publication that can complement a website or exist independently. A blog may include articles, short posts, listicles, infographics, videos, and other digital content.”</blockquote>
-                    <div class="rating">
-                      <svg class="star star-fill">
-                        <use xlink:href="#star-fill"></use>
-                      </svg>
-                      <svg class="star star-fill">
-                        <use xlink:href="#star-fill"></use>
-                      </svg>
-                      <svg class="star star-fill">
-                        <use xlink:href="#star-fill"></use>
-                      </svg>
-                      <svg class="star star-half">
-                        <use xlink:href="#star-half"></use>
-                      </svg>
-                      <svg class="star star-empty">
-                        <use xlink:href="#star-empty"></use>
-                      </svg>
-                    </div>
-                    <div class="author-detail">
-                      <div class="name text-dark text-uppercase pt-2">Jennie Rose</div>
-                    </div>
-                  </div>
-                </div>
               </div>
-            </div>
-            <div class="swiper-icon swiper-arrow swiper-arrow-next position-absolute d-flex align-items-center">
-              <svg class="chevron-right">
-                <use xlink:href="#chevron-right" />
-              </svg>
-            </div>
+              <div class="col-lg-6 col-md-6 mb-4">
+                  <div class="card" style="background-color: #f8f9fa;">
+                      <div class="card-body">
+                          <p>
+                              I've been using MountGuard cream on my horse's open wounds, and it's been a lifesaver. Not only does it protect the wound from flies and bugs, but it also seems to soothe and heal. My horse is more comfortable, and recovery is quicker. A must-have for any horse owner!
+                          </p>
+                          <p class="text-dark">Lucas Montgomery</p>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-      <div class="swiper-pagination"></div>
-    </section>
-    
+  </section>
+  
 
-    <section id="subscribe" class="container-grid padding-large position-relative overflow-hidden">
+  <style>
+    .card {
+        height: 100%;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
+
+
+<section id="company-services" class="padding-large" style="background-color: #ffffff;">
+  <div class="container">
+      <h1 class="text-center">Natural Equine Protection</h1>
+      <br>
+      <div class="row">
+          <div class="col-lg-12 col-md-12 mb-4">
+              <p class="text-center">All-natural protection that is kind to your horse and the environment.</p>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12 col-md-12 d-flex justify-content-center">
+              <a href="{% url 'product_list' %}">
+                  <button class="btn btn-small text-uppercase btn-rounded btn-lg text-white" style="background-color: #79b17d;">VIEW THE RANGE</button>
+              </a>
+          </div>
+      </div>
+  </div>
+</section>
+    <section id="subscribe" class="container-grid 
+    padding-large position-relative overflow-hidden">
       <div class="container">
         <div class="row">
-          <div class="subscribe-content rounded bg-dark d-flex flex-wrap justify-content-center align-items-center padding-medium">
+          <div class="subscribe-content rounded bg-secondary 
+          d-flex flex-wrap justify-content-center 
+          align-items-center padding-medium" >
             <div class="col-md-6 col-sm-12">
               <div class="display-header pe-3">
                 <h2 class="display-7 text-uppercase text-light">Subscribe Us Now</h2>
@@ -405,7 +254,7 @@
               <form method="post" action="{% url 'subscribe' %}"">
                 {% csrf_token %}
                 <div class="input-group flex-wrap">
-                  <input class="form-control btn-rounded-none" type="email" name="EMAIL" placeholder="Your email address here" required="">
+                  <input class="form-control btn-rounded-none rounded-left" type="email" name="EMAIL" placeholder="Your email address here" required="">
                   <button class="btn btn-medium btn-primary text-uppercase btn-rounded-none" type="submit" name="subscribe">Subscribe</button>
                 </div>
               </form>

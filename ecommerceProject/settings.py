@@ -56,7 +56,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # machine learning Api
-ML_API_URL = 'https://maxistore.onrender.com/ml'
+ML_API_URL = 'http://localhost:8000/ml'
 
 # Logging Configuration
 LOGGING = {

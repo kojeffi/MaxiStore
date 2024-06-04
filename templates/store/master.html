@@ -108,11 +108,13 @@
   </div>
   
 
-    <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
+    <header id="header" class="site-header header-scrolled position-fixed text-black" 
+    style="background-color: #ffffff;">
       <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-            <h1 class="logo">MaxiStore.</h1>
+          <a class="navbar-brand" href="{% url 'home-url' %}">
+            <img class="logo" src="{% static 'images/logo.png' %}"
+             alt="" style="height: 80px;padding-left: 100px;">
         </a>
         
           <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,11 +122,13 @@
               <use xlink:href="#navbar-icon"></use>
             </svg>
           </button>
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" 
+          aria-labelledby="bdNavbarOffcanvasLabel" style="background-color: #ffffff;">
             <div class="offcanvas-header px-4 pb-0">
-                <a class="navbar-brand" href="index.html">
-                  <h1 class="logo">MaxiStore.</h1>
-              </a>
+                <a class="navbar-brand" href="{% url 'home-url' %}">
+                    <img class="logo" src="{% static 'images/MountGuard-Logo-Dark.avif' %}"
+                     alt="" style="height: 80px;padding-left: 100px;">
+                </a>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
             </div>
             <div class="offcanvas-body">
@@ -132,26 +136,14 @@
                 <li class="nav-item">
                   <a class="nav-link me-4 active" href="{% url 'home-url' %}">Home</a>
                 </li>
-            
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="{% url 'product_list' %}">Products</a>
+                  <a class="nav-link me-4" href="{% url 'product_list' %}">MountGuard Range</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" href="#latest-blog">contact</a>
                 </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link me-4" href="#company-services">Services</a>
-                  </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="{% url 'register-url' %}">Register</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="{% url 'login-url' %}">Login</a>
-                </li>
-                {% endif %}
-  <!-- New Dropdown for Countries and Currencies -->
+                <!-- New Dropdown for Countries and Currencies -->
   <li class="nav-item dropdown">
     <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Currencies</a>
     <ul class="dropdown-menu">
@@ -167,6 +159,16 @@
       <li><a href="#" class="dropdown-item" data-currency="NZD">New Zealand (NZD)</a></li>
     </ul>
   </li>
+                {% else %}
+              
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{% url 'register-url' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="{% url 'login-url' %}">Login</a>
+                </li>
+                {% endif %}
+  
   
   <!-- JavaScript for Currency Conversion -->
   <script>
@@ -433,7 +435,8 @@ body {
 
 
 <!-- Contact Start -->
-<section id="contact" class="container-fluid pt-5">
+<section id="contact" class="container-fluid pt-5" 
+style="padding-left: 70px;padding-right: 60px;">
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Contact Us</span></h2>
     </div>
@@ -571,86 +574,33 @@ body {
 }
 
     </style>
-    <footer id="footer" class="overflow-hidden text-light py-5">
+    <!-- or teal; -->
+    <footer id="footer" class="overflow-hidden  py-5" style="background-color:  dark blue">
         <div class="container">
             <div class="row">
                 <div class="footer-top-area">
                     <div class="row d-flex flex-wrap justify-content-between">
-                        <div class="col-lg-3 col-sm-6 pb-3">
+                        <div class="col-lg-4 col-sm-6 pb-3">
                             <div class="footer-menu">
-                                <h1 class="text-white">MaxiStore</h1>
-                                <p>Your one-stop shop for all your needs</p>
-                                <div class="social-links">
-                                    <ul class="d-flex list-unstyled">
-                                        <li class="me-2">
-                                            <a href="#" class="text-light">
-                                                <svg class="facebook">
-                                                    <use xlink:href="#facebook" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#" class="text-light">
-                                                <svg class="instagram">
-                                                    <use xlink:href="#instagram" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#" class="text-light">
-                                                <svg class="twitter">
-                                                    <use xlink:href="#twitter" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#" class="text-light">
-                                                <svg class="linkedin">
-                                                    <use xlink:href="#linkedin" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#" class="text-light">
-                                                <svg class="youtube">
-                                                    <use xlink:href="#youtube" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <a class="navbar-brand" href="{% url 'home-url' %}">
+                                    <img class="logo" src="{% static 'images/mg-logo-white-transparent_13e62b04-ffeb-473c-80c0-d1ca9b3388cd.avif' %}"
+                                     alt="" style="width: 60%;height: 100px;padding-left: -100px;">
+                                </a>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-sm-6 pb-3">
+                      
+                        <div class="col-lg-4 col-sm-6 pb-3">
                             <div class="footer-menu">
-                                <h5 class="widget-title text-white pb-2">Quick Links</h5>
+                                <h5 class="widget-title text-white pb-2">Quick links</h5>
                                 <ul class="menu-list list-unstyled">
                                     <li class="menu-item pb-2">
                                         <a href="#" class="text-light">Home</a>
                                     </li>
-                                 
                                     <li class="menu-item pb-2">
-                                        <a href="#" class="text-light">Products</a>
-                                    </li>
-                                
-                                    <li class="menu-item pb-2">
-                                        <a href="#" class="text-light">Contact</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 pb-3">
-                            <div class="footer-menu">
-                                <h5 class="widget-title text-white pb-2">Help & Info</h5>
-                                <ul class="menu-list list-unstyled">
-                                    <li class="menu-item pb-2">
-                                        <a href="#" class="text-light">Track Your Order</a>
+                                        <a href="#" class="text-light">MountGuard Range</a>
                                     </li>
                                     <li class="menu-item pb-2">
-                                        <a href="#" class="text-light">Returns Policies</a>
-                                    </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="#" class="text-light">Shipping + Delivery</a>
+                                        <a href="#" class="text-light"> Contact</a>
                                     </li>
                                     <li class="menu-item pb-2">
                                         <a href="#" class="text-light">Contact Us</a>
@@ -661,11 +611,15 @@ body {
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6 pb-3">
+                        <div class="col-lg-4 col-sm-6 pb-3">
                             <div class="footer-menu">
-                                <h5 class="widget-title text-white pb-2">Contact Us</h5>
-                                <p class="text-light">Do you have any queries or suggestions? <a href="mailto:hello@meliandialogue.com" class="text-secondary">hello@meliandialogue.com</a></p>
-                                <p class="text-light">4 Durham Workspace, PityMe, Durham DH1 5JZ, UK <a href="tel:+447508516836" class="text-secondary">+447508516836</a></p>
+                                <h5 class="widget-title text-white pb-2">
+                                    Improving lives, protecting the planet.
+                                </h5>
+                                <p class="text-light">MountGuard is a brand of 
+                                    Core Environmental PLC. Improving lives and 
+                                    protecting the planet. 
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -676,16 +630,12 @@ body {
         <div id="footer-bottom" class="py-3">
             <div class="container">
                 <div class="row d-flex flex-wrap justify-content-between">
-                    <div class="col-md-4 col-sm-6 mb-2">
+                    <div class="col-md-6 col-sm-6 mb-2">
                         <div class="Shipping d-flex">
-                            <p class="text-light me-2">We ship with:</p>
-                            <div class="card-wrap">
-                                <img src="{% static 'images/dhl.png' %}" alt="DHL" class="me-2">
-                                <img src="{% static 'images/shippingcard.png' %}" alt="Shipping Card">
-                            </div>
+                            <p class="text-light me-2">© 2024, MountGuard Powered by Shopify</p>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 mb-2">
+                    <div class="col-md-6 col-sm-6 mb-2">
                         <div class="payment-method d-flex">
                             <p class="text-light me-2">Payment options:</p>
                             <div class="card-wrap">
@@ -693,11 +643,6 @@ body {
                                 <img src="{% static 'images/mastercard.jpg' %}" alt="Mastercard" class="me-2">
                                 <img src="{% static 'images/paypal.jpg' %}" alt="Paypal">
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="copyright text-light">
-                            <p>© Copyright 2024 MaxiStore. Design by <a href="#" class="text-primary">MaxiStore</a> Distribution by <a href="#" class="text-primary">MaxiStore</a></p>
                         </div>
                     </div>
                 </div>

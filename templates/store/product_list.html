@@ -4,10 +4,7 @@
 <div class="container mt-5">
     <!-- Breadcrumb Navigation -->
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'home-url' %}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Products</li>
-        </ol>
+        <h1>Products</h1>
     </nav>
 
     <!-- Dynamic Heading -->
@@ -27,7 +24,7 @@
 
     <!-- Filter, Sort, and Search Form -->
     <div class="row mb-4">
-        <div class="col-md-12">
+        <div class="col-md-4 justify-content-end">
             <form method="get" action="{% url 'search' %}" class="form-inline justify-content-center">
                 <div class="input-group mb-3">
                     <input type="text" name="q" class="form-control" placeholder="Search Products..." value="{{ query }}">
