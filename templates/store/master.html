@@ -114,7 +114,7 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home-url' %}">
             <img class="logo" src="{% static 'images/logo.png' %}"
-             alt="" style="height: 80px;padding-left: 100px;">
+             alt="" style="height: 80px;">
         </a>
         
           <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,10 +125,28 @@
           <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" 
           aria-labelledby="bdNavbarOffcanvasLabel" style="background-color: #ffffff;">
             <div class="offcanvas-header px-4 pb-0">
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="{% url 'home-url' %}">
-                    <img class="logo" src="{% static 'images/MountGuard-Logo-Dark.avif' %}"
-                     alt="" style="height: 80px;padding-left: 100px;">
+                    <img class="logo img-fluid" 
+                    src="{% static 'images/MountGuard-Logo-Dark.avif' %}" alt="" style="height: 80px;">
                 </a>
+                <!-- Other navbar items -->
+            </nav>
+            <style>
+              <style>
+        .navbar-brand .logo {
+            height: 80px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand .logo {
+                height: 60px;
+            }
+        }
+    </style>
+            </style>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
             </div>
             <div class="offcanvas-body">
