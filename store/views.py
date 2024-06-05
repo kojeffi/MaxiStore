@@ -44,14 +44,14 @@ def remove_from_wishlist(request, product_id):
 
 
 
-@login_required
-def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    order, created = Order.objects.get_or_create(user=request.user, status='pending')
-    order.product.add(product)
-    order.total_price += product.price
-    order.save()
-    return redirect('cart')
+# @login_required
+# def add_to_cart(request, product_id):
+#     product = get_object_or_404(Product, id=product_id)
+#     order, created = Order.objects.get_or_create(user=request.user, status='pending')
+#     order.product.add(product)
+#     order.total_price += product.price
+#     order.save()
+#     return redirect('cart')
 
 @login_required
 def cart(request):
@@ -109,16 +109,41 @@ from django.http import JsonResponse
 from .models import Product, Cart, CartItem, Order, OrderItem
 from django.utils import timezone
 
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Product, Cart, CartItem, Order, OrderItem
+
 @login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    # Get the most recent cart for the current user
-    cart = Cart.objects.filter(user=request.user).latest('created_at')
+    
+    # Get or create the cart for the user
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    
+    # Check if the cart item already exists
     cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    
+    # If the cart item already exists, increase its quantity
     if not created:
         cart_item.quantity += 1
-    cart_item.save()
+        cart_item.save()
+    
+    # Redirect to cart detail page
     return redirect('cart_detail')
+
+@login_required
+def cart_detail(request):
+    # Get or create the cart for the user
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    
+    # Retrieve all cart items for the cart
+    cart_items = cart.cartitem_set.all()
+    
+    # Calculate total price of all cart items
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    
+    return render(request, 'store/cart_detail.html', {'cart': cart, 'cart_items': cart_items, 'total_price': total_price})
+
 
 
 def update_cart_item(request, cart_item_id):
