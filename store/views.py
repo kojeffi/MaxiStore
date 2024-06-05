@@ -249,17 +249,3 @@ def search(request):
     query = request.GET.get('q')
     results = Product.objects.filter(name__icontains=query) if query else []
     return render(request, 'store/product_list.html', {'query': query, 'results': results})
-
-
-
-from django.contrib import messages
-
-@login_required
-def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    order, created = Order.objects.get_or_create(user=request.user, status='pending')
-    order.product.add(product)
-    order.total_price += product.price
-    order.save()
-    messages.success(request, 'Product added to cart successfully.')
-    return redirect('cart')
