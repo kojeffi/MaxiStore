@@ -274,3 +274,35 @@ def search(request):
     query = request.GET.get('q')
     results = Product.objects.filter(name__icontains=query) if query else []
     return render(request, 'store/product_list.html', {'query': query, 'results': results})
+
+
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Product, Cart, CartItem, Order, OrderItem
+from django.utils import timezone
+
+@login_required
+def cart_detail(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_items = cart.cartitem_set.all()
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    return render(request, 'store/cart_detail.html', {'cart': cart, 'cart_items': cart_items, 'total_price': total_price})
+
+@login_required
+def checkout(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    order = Order.objects.create(user=request.user, total_price=sum(item.product.price * item.quantity for item in cart.cartitem_set.all()))
+    for item in cart.cartitem_set.all():
+        OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, price=item.product.price)
+        item.product.stock -= item.quantity
+        item.product.save()
+    cart.cartitem_set.all().delete()
+    return redirect('order_detail', order_id=order.id)
+
+@login_required
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    order_items = OrderItem.objects.filter(order=order)
+    return render(request, 'store/order_detail.html', {'order': order, 'order_items': order_items})

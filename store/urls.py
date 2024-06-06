@@ -21,4 +21,8 @@ urlpatterns = [
     path('order/<int:order_id>/', order_detail, name='order_detail'),
 
     path('search/', search, name='search'),
+
+    path('cart/', cart_detail, name='cart_detail'),
+    path('checkout/', checkout, name='checkout'),
+    path('order/<int:order_id>/', order_detail, name='order_detail'),
 ]
