@@ -299,10 +299,10 @@ def checkout(request):
         item.product.stock -= item.quantity
         item.product.save()
     cart.cartitem_set.all().delete()
-    return redirect('order_detail', order_id=order.id)
+    return redirect('checkout', order_id=order.id)
 
 @login_required
 def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     order_items = OrderItem.objects.filter(order=order)
-    return render(request, 'store/order_detail.html', {'order': order, 'order_items': order_items})
+    return render(request, 'store/checkout.html', {'order': order, 'order_items': order_items})
