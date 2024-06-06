@@ -16,11 +16,25 @@
         <div class="col-lg-6">
             <h1 class="mb-4">{{ product.name }}</h1>
             <p class="text-muted mb-4">{{ product.description }}</p>
-            <p class="card-text  product-price text-primary font-weight-bold" 
-            data-base-price="{{ product.price }}">Price: ${{ product.price }}</p>
+            <p class="card-text product-price text-primary font-weight-bold" data-base-price="{{ product.price }}">
+                Price: $<span id="total-price">{{ product.price }}</span>
+            </p>
             <p class="text-primary mb-4">Stock: {{ product.stock }}</p>
+
+            <!-- Quantity Selector Start -->
+            <div class="input-group mb-4" style="max-width: 200px;">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button" id="decrease-quantity">-</button>
+                </div>
+                <input type="number" id="quantity" name="quantity" class="form-control text-center" value="1" min="1" max="{{ product.stock }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="increase-quantity">+</button>
+                </div>
+            </div>
+            <!-- Quantity Selector End -->
+
             <div class="mb-4">
-                <a href="{% url 'add_to_cart' product.id %}">
+                <a href="#" id="add-to-cart-link" data-product-id="{{ product.id }}">
                     <button class="btn btn-outline-primary rounded-pill mr-3">
                         <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
                     </button>
@@ -43,13 +57,13 @@
                 <h2 class="mb-3">Reviews</h2>
                 <ul class="list-unstyled">
                     {% for review in reviews %}
-                        <li class="review-item">
-                            <strong>{{ review.user.username }}</strong> ({{ review.rating }}/5)
-                            <p>{{ review.comment }}</p>
-                            <small>{{ review.created_at }}</small>
-                        </li>
+                    <li class="review-item">
+                        <strong>{{ review.user.username }}</strong> ({{ review.rating }}/5)
+                        <p>{{ review.comment }}</p>
+                        <small>{{ review.created_at }}</small>
+                    </li>
                     {% empty %}
-                        <li class="no-reviews">No reviews yet.</li>
+                    <li class="no-reviews">No reviews yet.</li>
                     {% endfor %}
                 </ul>
                 <a href="{% url 'leave_review' product.id %}" class="btn btn-outline-primary rounded-pill btn-block mt-3">Leave a review</a>
@@ -64,95 +78,116 @@
         max-width: 100%;
         height: auto;
     }
+
     .container h1 {
         font-size: 2.5rem;
         font-weight: bold;
         color: #333;
     }
+
     .container p {
         font-size: 1.2rem;
         color: #666;
     }
+
     .container h4 {
         font-size: 2rem;
         color: #007bff;
     }
+
     .btn-outline-primary:hover {
         background-color: #007bff;
         border-color: #007bff;
         color: white;
     }
+
     .btn-outline-info:hover {
         background-color: #17a2b8;
         border-color: #17a2b8;
         color: white;
     }
+
     .btn-outline-danger:hover {
         background-color: #dc3545;
         border-color: #dc3545;
         color: white;
     }
+
     .rounded-pill {
         border-radius: 50px;
     }
+
     .rounded-circle {
         border-radius: 50%;
     }
+
     .reviews {
         background-color: #f8f9fa;
         padding: 20px;
         border-radius: 10px;
     }
+
     .review-item {
         border-bottom: 1px solid #dee2e6;
         padding-bottom: 10px;
         margin-bottom: 10px;
     }
+
     .no-reviews {
         color: #999;
     }
 </style>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const countryDropdownItems = document.querySelectorAll('.dropdown-item');
-    const productPriceElements = document.querySelectorAll('.product-price');
+        const decreaseQuantityButton = document.getElementById('decrease-quantity');
+        const increaseQuantityButton = document.getElementById('increase-quantity');
+        const quantityInput = document.getElementById('quantity');
+        const addToCartLink = document.getElementById('add-to-cart-link');
+        const totalPriceElement = document.getElementById('total-price');
+        const basePrice = parseFloat(document.querySelector('.product-price').getAttribute('data-base-price'));
 
-    countryDropdownItems.forEach(item => {
-        item.addEventListener('click', async (event) => {
-            event.preventDefault();
-            const currency = item.getAttribute('data-currency');
-            const exchangeRate = await getExchangeRate(currency);
-            updatePrices(exchangeRate, currency);
-        });
-    });
-
-    async function getExchangeRate(currency) {
-        const apiKey = 'https://v6.exchangerate-api.com/v6/562fe40dc90930eb43604ebf/latest/USD'; // Replace with your API key
-        const apiUrl = `https://api.exchangerate-api.com/v4/latest/USD`;
-
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-            return data.rates[currency];
-        } catch (error) {
-            console.error('Error fetching exchange rate:', error);
-            return 1; // Default to 1 if there's an error
+        function updateTotalPrice() {
+            const quantity = parseInt(quantityInput.value);
+            const totalPrice = (basePrice * quantity).toFixed(2);
+            totalPriceElement.textContent = totalPrice;
         }
-    }
 
-    function updatePrices(exchangeRate, currency) {
-        productPriceElements.forEach(element => {
-            const basePrice = parseFloat(element.getAttribute('data-base-price'));
-            const newPrice = (basePrice * exchangeRate).toFixed(2);
-            element.textContent = `Price: ${currency} ${newPrice}`;
+        decreaseQuantityButton.addEventListener('click', () => {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantityInput.value = quantity - 1;
+                updateTotalPrice();
+            }
         });
-    }
-});
 
-   </script>
-    <!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Include Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        increaseQuantityButton.addEventListener('click', () => {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < parseInt(quantityInput.max)) {
+                quantityInput.value = quantity + 1;
+                updateTotalPrice();
+            }
+        });
+
+        quantityInput.addEventListener('input', () => {
+            if (quantityInput.value < 1) {
+                quantityInput.value = 1;
+            } else if (quantityInput.value > parseInt(quantityInput.max)) {
+                quantityInput.value = quantityInput.max;
+            }
+            updateTotalPrice();
+        });
+
+        addToCartLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productId = addToCartLink.getAttribute('data-product-id');
+            const quantity = quantityInput.value;
+            const url = `{% url 'add_to_cart' 0 %}`.replace('0', productId) + `?quantity=${quantity}`;
+            window.location.href = url;
+        });
+
+        updateTotalPrice(); // Initialize total price on page load
+    });
+</script>
 
 {% endblock %}
