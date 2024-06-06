@@ -144,32 +144,26 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
-# Media files (user-uploaded files)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 import os
-from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Other settings...
-
-# Static files (CSS, JavaScript, Images)
+# Define the URL for serving static files
 STATIC_URL = '/static/'
+
+# Define the directory where static files will be collected during deployment
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Other settings...
+# Additional directories for static files (for development purposes)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# Define the URL for serving media files
+MEDIA_URL = '/media/'
+
+# Define the directory where media files will be uploaded
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 # Default primary key field type
@@ -182,3 +176,37 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'omondijeff88@gmail.com'
 EMAIL_HOST_PASSWORD = 'ddkkmbaptbrelfpf'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import os
+
+# Define the URL for serving static files
+STATIC_URL = '/static/'
+
+# Define the directory where static files will be collected during deployment
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Additional directories for static files (for development purposes)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# Define the URL for serving media files
+MEDIA_URL = '/media/'
+
+# Define the directory where media files will be uploaded
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
