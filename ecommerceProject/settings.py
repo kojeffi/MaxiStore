@@ -188,9 +188,6 @@ EMAIL_HOST_PASSWORD = 'ddkkmbaptbrelfpf'
 
 
 
-
-
-
 import os
 
 # Define the URL for serving static files
@@ -207,6 +204,4 @@ STATICFILES_DIRS = [
 # Define the URL for serving media files
 MEDIA_URL = '/media/'
 
-# Define the directory where media files will be uploaded
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+# Define the directory where media files will be uploadeMEDIA_ROOT = os.path.join(BASE_DIR, 'media')
