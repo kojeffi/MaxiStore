@@ -1,265 +1,354 @@
 {% extends 'store/master.html' %}
 {% load static %}
-    {% block content %}
-    <style>
-      @keyframes moveBackground {
-        0% {
-          background-position: center center;
-        }
-        100% {
-          background-position: center top;
-        }
-      }
-    
-      #billboard {
-        background: url('{% static 'images/mountguard-hero-1.jpg' %}') no-repeat center center/cover;
-        padding: 100px 0; /* Adjust padding as needed */
-        animation: moveBackground 30s linear infinite;
-      }
-    
-      #billboard .banner-content h3 {
-        color: #fff; /* Adjust text color for better contrast with the background */
-      }
-    
-      #billboard .btn {
-        margin-top: 20px;
-      }
-    
-      #billboard .image-holder img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-      }
-    </style>
-    
-    <section id="billboard" class="position-relative overflow-hidden bg-light-blue"  data-aos="fade-up">
-      <div class="container">
-          <div class="row d-flex align-items-center">
-              <div class="col-md-6 col-lg-6">
-                  <div class="banner-content" data-aos="fade-up">
-                    <br><br><br><br><br>
-                        <h1 class="text-white" style="font-weight: 200;font-size: 60px;"><b>Naturally protected for ultimate comfort</b></h1>
-                        <p class="text-white" style="font-size: 20px;">Fast and effective insect defence with our all-natural MountGuard range 
-                        that is kind to your horse and the environment.</p>
-                        <a href="{% url 'product_list' %}" class="btn btn-medium 
-                        text-uppercase btn-rounded text-white" 
-                        style="background-color: #79b17d;">View The Range</a>
-                  </div>
-              </div>
-              <div class="col-md-6 col-lg-6">
-                  <div class="image-holder">
-                    
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
- 
- <section id="company-services" class="padding-large" style="background-color: #ffffff;" data-aos="fade-up">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2 col-lg-2"></div>
-        <div class="col-lg-8 col-md-8">
-          <h1 class="text-center">The battle against bugs</h1>
-          <p class="text-center"> Insects can turn the joy of horse ownership into a constant battle against irritation and health risks. Traditional repellents often contain harsh chemicals, adding to your worries. MountGuard's revolutionary micellar technology is an effective, all-natural solution that gives your horse instant comfort. It's safe for your horse and the environment.
-          </p>
-          </div>
-          <div class="col-md-2 col-lg-2"></div>
-          </div>
-          </div>
-          </section>
 
-          <section id="mobile-products" class="product-store position-relative padding-large 
-          no-padding-top" style="background-color: #ffffff;" data-aos="fade-up">
-            <div class="container">
-              <div class="row">
-                <div class="display-header d-flex justify-content-between align-items-center pb-3">
-                  <h2 class="display-7 text-dark" style="left: 40px;">Equine Protection</h2>
-                </div>
-                <div class="row">
-                  {% for product in products %}
-                  <div class="col-md-6 col-lg-6 mb-4">
-                    <div class="image-holder text-center position-relative">
-                      <a href="{% url 'product_list' %}" class="d-block">
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}" class="rounded img-fluid">
-                      </a>
-                      <br>
-                      <div class="card-detail text-center pt-3">
-                        <p class="card-title text-dark">
-                          <a href="{% url 'product_list' %}">{{ product.name }}</a>
-                        </p>
-                        <span class="item-price text-black product-price" data-base-price="{{ product.price }}">Price: ${{ product.price }}</span>
-                      </div>
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          </section>
-          
-        <style>
-  .image-holder img {
-    transition: transform 0.3s ease;
-    width: 90%; /* Ensure the images take up the full width of their container */
+{% block content %}
+<style>
+  /* Add your custom styles here */
+  #billboard {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static 'images/mountguard-hero-1.jpg' %}') no-repeat center center/cover;
+    padding: 100px 0;
+    color: #fff;
+    text-align: center;
   }
 
-  .image-holder:hover img {
-    transform: scale(1.1);
+  #billboard h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  #billboard p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+
+  #billboard .btn {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border-radius: 50px;
+  }
+
+  #company-services h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  #company-services p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  .card {
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+
+  .card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .card .text-dark {
+    font-weight: 600;
+  }
+
+  #natural-protection h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  #subscribe {
+    background-color: #f8f9fa;
+    padding: 100px 0;
+  }
+
+  #subscribe h2 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  #subscribe p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  #subscribe .rounded-pill {
+    border-radius: 50px;
+  }
+
+  #subscribe .form-control {
+    border-radius: 50px;
+    padding: 20px 30px;
+    font-size: 1.2rem;
+  }
+
+  #subscribe .btn-primary {
+    background-color: #79b17d;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
   }
 </style>
 
-        
-            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-          </head>
-          <body>
-          
-            <section id="company-services" class="padding-large" style="background-color: #f0f0f0;" data-aos="fade-up">
-              <div class="container">
-                <h1>MountGuard in action</h1>
-                <br>
-            <div class="row">
-              <div class="col-md-6 d-flex flex-column align-items-center ">
-                <video id="video1" class="w-100 rounded" loop playsinline>
-                  <source src="{% static 'videos/Natural Insect Control Options.mp4' %}" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-                <button id="playButton1" class="btn btn-success btn-lg mt-3">Play Video 1</button>
-              </div>
-              <div class="col-md-6 d-flex flex-column align-items-center ">
-                <video id="video2" class="w-100 rounded" loop playsinline>
-                  <source src="{% static 'videos/The Benefits of Using an Automatic Waterer for Horses.mp4' %}" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-                <button id="playButton2" class="btn btn-success btn-lg mt-3">Play Video 2</button>
-              </div>
-            </div>
-            </div>
-          </section>
-          
-          <!-- Bootstrap JS and dependencies -->
-          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-          <script>
-            document.getElementById('playButton1').addEventListener('click', function() {
-              const video1 = document.getElementById('video1');
-              const video2 = document.getElementById('video2');
-              video2.pause(); // Pause the other video
-              video1.muted = false; // Unmute this video
-              video1.play(); // Play this video
-            });
-          
-            document.getElementById('playButton2').addEventListener('click', function() {
-              const video1 = document.getElementById('video1');
-              const video2 = document.getElementById('video2');
-              video1.pause(); // Pause the other video
-              video2.muted = false; // Unmute this video
-              video2.play(); // Play this video
-            });
-          </script>
-         
-          
- 
-    <section id="company-services" class="padding-large fade-out"
-     style="background-color: #ffffff;" data-aos="fade-up">
-      <div class="container">
-          <h1 class="text-center">People are saying...</h1>
-          <br>
-          <div class="row">
-              <div class="col-lg-6 col-md-6 mb-4">
-                  <div class="card" style="background-color: #f8f9fa;">
-                      <div class="card-body">
-                          <p>
-                              As a horse owner, warm weather always meant a battle with flies irritating my horse. Since discovering MountGuard, that's changed. The immediate protection it offers is astounding, keeping my horse calm and comfortable. MountGuard is now our go-to solution.
-                          </p>
-                          <p class="text-dark">Eleanor Fitzroy</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-6 col-md-6 mb-4">
-                  <div class="card" style="background-color: #f8f9fa;">
-                      <div class="card-body">
-                          <p>
-                              I've been using MountGuard cream on my horse's open wounds, and it's been a lifesaver. Not only does it protect the wound from flies and bugs, but it also seems to soothe and heal. My horse is more comfortable, and recovery is quicker. A must-have for any horse owner!
-                          </p>
-                          <p class="text-dark">Lucas Montgomery</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-  
-
-  <style>
-    .card {
-        height: 100%;
-    }
-    .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-</style>
-
-
-<section id="company-services" class="padding-large" style="background-color: #ffffff;" data-aos="fade-up">
+<section id="billboard">
   <div class="container">
-      <h1 class="text-center">Natural Equine Protection</h1>
-      <br>
-      <div class="row">
-          <div class="col-lg-12 col-md-12 mb-4">
-              <p class="text-center">All-natural protection that is kind to your horse and the environment.</p>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-lg-12 col-md-12 d-flex justify-content-center">
-              <a href="{% url 'product_list' %}">
-                  <button class="btn btn-small text-uppercase btn-rounded btn-lg text-white" style="background-color: #79b17d;">VIEW THE RANGE</button>
-              </a>
-          </div>
-      </div>
-  </div>
-</section>
-    <section id="subscribe" class="container-grid 
-    padding-large position-relative overflow-hidden" data-aos="fade-up">
-      <div class="container">
-        <div class="row">
-          <div class="subscribe-content rounded bg-secondary 
-          d-flex flex-wrap justify-content-center 
-          align-items-center padding-medium" >
-            <div class="col-md-6 col-sm-12">
-              <div class="display-header pe-3">
-                <h2 class="display-7 text-uppercase text-light">Subscribe Us Now</h2>
-                <p>Get latest news, updates and deals directly mailed to your inbox.</p>
-              </div>
-            </div>
-            {% if success_message %}
-            <div class="alert alert-white" role="alert">
-                {{ success_message }}
-            </div>
-        {% endif %}
-
-        {% if error_message %}
-            <div class="alert alert-danger" role="alert">
-                {{ error_message }}
-            </div>
-        {% endif %}
-            <div class="col-md-5 col-sm-12">
-              <form method="post" action="{% url 'subscribe' %}"">
-                {% csrf_token %}
-                <div class="input-group flex-wrap">
-                  <input class="form-control rounded-pill" type="email" name="EMAIL" placeholder="Your email address here" required="">
-                  <button class="btn btn-primary text-uppercase rounded-pill" type="submit" name="subscribe">Subscribe</button>
-                </div>
-              </form>
-            </div>
-          </div>
+    <div class="row">
+      <div class="col-md-6">
+        <br><br><br><br>
+        <div class="banner-content">
+          <h1>Naturally protected for ultimate comfort</h1>
+          <p>Fast and effective insect defense with our all-natural MountGuard range that is kind to your horse and the environment.</p>
+          <a href="{% url 'product_list' %}" class="btn btn-primary">View The Range</a>
         </div>
       </div>
-    </section>
+      <div class="col-md-6">
+        <div class="image-holder">
+          <!-- Image or video placeholder -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-   
-    {% endblock %}
+<section id="company-services" class="padding-large">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 mx-auto text-center">
+        <h1>The battle against bugs</h1>
+        <p>Insects can turn the joy of horse ownership into a constant battle against irritation and health risks. Traditional repellents often contain harsh chemicals, adding to your worries. MountGuard's revolutionary micellar technology is an effective, all-natural solution that gives your horse instant comfort. It's safe for your horse and the environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section id="mobile-products" class="product-store padding-large">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center mb-4">Equine Protection</h2>
+      </div>
+      {% for product in products %}
+      <div class="col-md-6 mb-4">
+        <div class="image-holder text-center">
+          <img src="{{ product.image.url }}" alt="{{ product.title }}" class="rounded img-fluid">
+        </div>
+        <div class="card-detail text-center">
+          <p class="card-title"><a href="{% url 'product_list' %}">{{ product.name }}</a></p>
+          <p class="item-price product-price" data-base-price="{{ product.price }}">Price: ${{ product.price }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<section id="company-videos" class="padding-large">
+  <div class="container">
+    <h1 class="text-center">MountGuard in action</h1>
+    <br><br><br>
+    <div class="row">
+      <div class="col-md-6">
+        <br>
+        <div class="video-container position-relative">
+          <video id="video1" class="w-100 rounded" loop playsinline>
+            <source src="{% static 'videos/Natural Insect Control Options.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <button id="playButton1" class="control-button play-button"><i class="fas fa-play"></i></button>
+          <button id="muteButton1" class="control-button mute-button"><i class="fas fa-volume-up"></i></button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <br>
+        <div class="video-container position-relative">
+          <video id="video2" class="w-100 rounded" loop playsinline>
+            <source src="{% static 'videos/The Benefits of Using an Automatic Waterer for Horses.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <button id="playButton2" class="control-button play-button"><i class="fas fa-play"></i></button>
+          <button id="muteButton2" class="control-button mute-button"><i class="fas fa-volume-up"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .video-container video {
+    width: 100%;
+    height: auto;
+  }
+
+  .control-button {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .control-button i {
+    color: white;
+  }
+
+  .control-button:hover {
+    opacity: 0.7;
+  }
+
+  .play-button {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .mute-button {
+    bottom: 20px;
+    right: 20px;
+  }
+</style>
+
+<script>
+  const video1 = document.getElementById('video1');
+  const video2 = document.getElementById('video2');
+
+  document.getElementById('playButton1').addEventListener('click', function() {
+    if (video1.paused) {
+      video1.play();
+      this.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+      video1.pause();
+      this.innerHTML = '<i class="fas fa-play"></i>';
+    }
+  });
+
+  document.getElementById('playButton2').addEventListener('click', function() {
+    if (video2.paused) {
+      video2.play();
+      this.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+      video2.pause();
+      this.innerHTML = '<i class="fas fa-play"></i>';
+    }
+  });
+
+  document.getElementById('muteButton1').addEventListener('click', function() {
+    if (video1.muted) {
+      video1.muted = false;
+      this.innerHTML = '<i class="fas fa-volume-up"></i>';
+    } else {
+      video1.muted = true;
+      this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    }
+  });
+
+  document.getElementById('muteButton2').addEventListener('click', function() {
+    if (video2.muted) {
+      video2.muted = false;
+      this.innerHTML = '<i class="fas fa-volume-up"></i>';
+    } else {
+      video2.muted = true;
+      this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    }
+  });
+</script>
+
+
+
+
+
+<section id="testimonials" class="padding-large">
+  <div class="container">
+    <h1 class="text-center">People are saying...</h1>
+    <br>
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <p>As a horse owner, warm weather always meant a battle with flies irritating my horse. Since discovering MountGuard, that's changed. The immediate protection it offers is astounding, keeping my horse calm and comfortable. MountGuard is now our go-to solution.</p>
+<p class="text-dark">Eleanor Fitzroy</p>
+</div>
+</div>
+</div>
+<div class="col-lg-6 mb-4">
+<div class="card">
+<div class="card-body">
+<p>I've been using MountGuard cream on my horse's open wounds, and it's been a lifesaver. Not only does it protect the wound from flies and bugs, but it also seems to soothe and heal. My horse is more comfortable, and recovery is quicker. A must-have for any horse owner!</p>
+<p class="text-dark">Lucas Montgomery</p>
+</div>
+</div>
+</div>
+</div>
+
+  </div>
+</section>
+<section id="natural-protection" class="padding-large" style="background-color: #ffffff;">
+  <div class="container">
+    <h1 class="text-center">Natural Equine Protection</h1>
+    <br>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>All-natural protection that is kind to your horse and the environment.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <a href="{% url 'product_list' %}">
+          <button class="btn btn-lg btn-success rounded-pill">VIEW THE RANGE</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="subscribe" class="padding-large" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="display-header text-center">
+          <h2 class="text-uppercase">Subscribe Us Now</h2>
+          <p>Get latest news, updates, and deals directly mailed to your inbox.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        {% if success_message %}
+          <div class="alert alert-success" role="alert">
+            {{ success_message }}
+          </div>
+        {% endif %}
+        {% if error_message %}
+          <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+          </div>
+        {% endif %}
+        <form method="post" action="{% url 'subscribe' %}">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="email" class="form-control rounded-pill" name="EMAIL" placeholder="Your email address here" required>
+            <button type="submit" class="btn btn-primary rounded-pill">Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

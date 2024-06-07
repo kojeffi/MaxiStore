@@ -456,92 +456,86 @@ body {
 
 
 <!-- Contact Start -->
-<section id="contact" class="container-fluid pt-5" 
-style="padding-left: 70px;padding-right: 60px;">
-    <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Contact Us</span></h2>
-    </div>
-    <div class="row px-xl-5">
-        <div class="col-md-5 mb-5">
-            <div class="contact-info">
-                <h5 class="font-weight-semi-bold mb-3">Get In Touch</h5>
-                <div class="d-flex flex-column mb-3">
-                    <div class="store-info">
-                        <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
-                        <p class="mb-2">
-                            <i class="fa fa-map-marker-alt  mr-3"></i>
-                            4 Durham Workspace<br>
-                            PityMe, Durham DH1 5JZ, UK
-                        </p>
-                        <p class="mb-2">
-                            <i class="fa fa-envelope  mr-3"></i>
-                            Landline: 0044(0)3331886566
-                        </p>
-                        <p class="mb-2">
-                            <i class="fa fa-envelope  mr-3"></i>
-                            Email: hello@meliandialogue.com
-                        </p>
-                        <p class="mb-2">
-                            <i class="fa fa-phone-alt  mr-3"></i>
-                            Mobile: +447508516836
-                        </p>
-                    </div>
-                    <div class="store-info">
-                        <h5 class="font-weight-semi-bold mb-3">Store 2</h5>
-                        <p class="mb-2">
-                            <i class="fa fa-map-marker-alt  mr-3"></i>
-                            4 Durham Workspace<br>
-                            PityMe, Durham DH1 5JZ, UK
-                        </p>
-                        <p class="mb-2">
-                            <i class="fa fa-envelope  mr-3"></i>
-                            josh@meliandialogue.com<br>
-                            jim.coke@meliandialogue.com
-                        </p>
-                        <p class="mb-0">
-                            <i class="fa fa-phone-alt  mr-3"></i>
-                            Mobile: +447508516836
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-7 mb-5">
-            <div class="contact-form">
-                <form id="contactForm" method="post" action="{% url 'contact' %}" novalidate>
-                    {% csrf_token %}
-                    <div id="success"></div>
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
-                            required="required" data-validation-required-message="Please enter your name" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"
-                            required="required" data-validation-required-message="Please enter your email" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject"
-                            required="required" data-validation-required-message="Please enter a subject" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <textarea class="form-control" rows="6" id="message" name="message" placeholder="Message"
-                            required="required" data-validation-required-message="Please enter your message"></textarea>
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send
-                            Message</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+<section id="contact" class="container-fluid pt-5" style="padding-left: 70px; padding-right: 60px;">
+  <div class="text-center mb-4">
+      <h2 class="section-title px-5"><span class="px-2">Contact Us</span></h2>
+  </div>
+  <div class="row px-xl-5">
+      <div class="col-md-5 mb-5">
+          <div class="contact-info">
+              <h5 class="font-weight-semi-bold mb-3">Get In Touch</h5>
+              <div class="d-flex flex-column mb-3">
+                  <div class="store-info mb-4">
+                      <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
+                      <p class="mb-2">
+                          <i class="fa fa-map-marker-alt mr-3"></i>
+                          4 Durham Workspace<br>
+                          PityMe, Durham DH1 5JZ, UK
+                      </p>
+                      <p class="mb-2">
+                          <i class="fa fa-phone-alt mr-3"></i>
+                          Landline: 0044(0)3331886566
+                      </p>
+                      <p class="mb-2">
+                          <i class="fa fa-envelope mr-3"></i>
+                          Email: hello@meliandialogue.com
+                      </p>
+                      <p class="mb-2">
+                          <i class="fa fa-mobile-alt mr-3"></i>
+                          Mobile: +447508516836
+                      </p>
+                  </div>
+                  <div class="store-info">
+                      <h5 class="font-weight-semi-bold mb-3">Store 2</h5>
+                      <p class="mb-2">
+                          <i class="fa fa-map-marker-alt mr-3"></i>
+                          4 Durham Workspace<br>
+                          PityMe, Durham DH1 5JZ, UK
+                      </p>
+                      <p class="mb-2">
+                          <i class="fa fa-envelope mr-3"></i>
+                          josh@meliandialogue.com<br>
+                          jim.coke@meliandialogue.com
+                      </p>
+                      <p class="mb-0">
+                          <i class="fa fa-mobile-alt mr-3"></i>
+                          Mobile: +447508516836
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-7 mb-5">
+          <div class="contact-form">
+              <form id="contactForm" method="post" action="{% url 'contact' %}" novalidate>
+                  {% csrf_token %}
+                  <div id="success"></div>
+                  <div class="control-group mb-3">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div class="control-group mb-3">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div class="control-group mb-3">
+                      <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div class="control-group mb-3">
+                      <textarea class="form-control" rows="6" id="message" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div>
+                      <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send Message</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
 </section>
 <!-- Contact End -->
+
 
 
     <style>
@@ -622,9 +616,6 @@ style="padding-left: 70px;padding-right: 60px;">
                                     </li>
                                     <li class="menu-item pb-2">
                                         <a href="#" class="text-light"> Contact</a>
-                                    </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="#" class="text-light">Contact Us</a>
                                     </li>
                                     <li class="menu-item pb-2">
                                         <a href="#" class="text-light">FAQs</a>
