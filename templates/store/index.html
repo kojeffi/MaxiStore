@@ -1,354 +1,194 @@
+
 {% extends 'store/master.html' %}
 {% load static %}
 
 {% block content %}
-<style>
-  /* Add your custom styles here */
-  #billboard {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static 'images/mountguard-hero-1.jpg' %}') no-repeat center center/cover;
-    padding: 100px 0;
-    color: #fff;
-    text-align: center;
-  }
 
-  #billboard h1 {
-    font-size: 3rem;
-    font-weight: 300;
-    margin-bottom: 20px;
-  }
-
-  #billboard p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-  }
-
-  #billboard .btn {
-    font-size: 1.2rem;
-    padding: 15px 30px;
-    border-radius: 50px;
-  }
-
-  #company-services h1 {
-    font-size: 2.5rem;
-    font-weight: 400;
-    margin-bottom: 30px;
-  }
-
-  #company-services p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-  }
-
-  .card {
-    background-color: #f8f9fa;
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 30px;
-  }
-
-  .card p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-
-  .card .text-dark {
-    font-weight: 600;
-  }
-
-  #natural-protection h1 {
-    font-size: 2.5rem;
-    font-weight: 400;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  #subscribe {
-    background-color: #f8f9fa;
-    padding: 100px 0;
-  }
-
-  #subscribe h2 {
-    font-size: 2.5rem;
-    font-weight: 400;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  #subscribe p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  #subscribe .rounded-pill {
-    border-radius: 50px;
-  }
-
-  #subscribe .form-control {
-    border-radius: 50px;
-    padding: 20px 30px;
-    font-size: 1.2rem;
-  }
-
-  #subscribe .btn-primary {
-    background-color: #79b17d;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 50px;
-  }
-</style>
-
-<section id="billboard">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <br><br><br><br>
-        <div class="banner-content">
-          <h1>Naturally protected for ultimate comfort</h1>
-          <p>Fast and effective insect defense with our all-natural MountGuard range that is kind to your horse and the environment.</p>
-          <a href="{% url 'product_list' %}" class="btn btn-primary">View The Range</a>
+    <!-- Featured Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="image-holder">
-          <!-- Image or video placeholder -->
+    </div>
+    <!-- Featured End -->
+
+    
+    <!-- Offer Start -->
+    <div class="container-fluid offer pt-5">
+        <div class="row px-xl-5">
+            <div class="col-md-6 pb-4">
+                <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
+                    <img src="img/offer-1.png" alt="">
+                    <div class="position-relative" style="z-index: 1;">
+                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
+                        <h1 class="mb-4 font-weight-semi-bold">Spring Collection</h1>
+                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pb-4">
+                <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
+                    <img src="img/offer-2.png" alt="">
+                    <div class="position-relative" style="z-index: 1;">
+                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
+                        <h1 class="mb-4 font-weight-semi-bold">Winter Collection</h1>
+                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</section>
+    <!-- Offer End -->
 
-<section id="company-services" class="padding-large">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mx-auto text-center">
-        <h1>The battle against bugs</h1>
-        <p>Insects can turn the joy of horse ownership into a constant battle against irritation and health risks. Traditional repellents often contain harsh chemicals, adding to your worries. MountGuard's revolutionary micellar technology is an effective, all-natural solution that gives your horse instant comfort. It's safe for your horse and the environment.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
+    <!-- Products Start -->
 <section id="mobile-products" class="product-store padding-large">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h2 class="text-center mb-4">Equine Protection</h2>
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Equine Protection</span></h2>
       </div>
-      {% for product in products %}
-      <div class="col-md-6 mb-4">
-        <div class="image-holder text-center">
-          <img src="{{ product.image.url }}" alt="{{ product.title }}" class="rounded img-fluid">
-        </div>
-        <div class="card-detail text-center">
-          <p class="card-title"><a href="{% url 'product_list' %}">{{ product.name }}</a></p>
-          <p class="item-price product-price" data-base-price="{{ product.price }}">Price: ${{ product.price }}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-
-<section id="company-videos" class="padding-large">
-  <div class="container">
-    <h1 class="text-center">MountGuard in action</h1>
-    <br><br><br>
-    <div class="row">
-      <div class="col-md-6">
-        <br>
-        <div class="video-container position-relative">
-          <video id="video1" class="w-100 rounded" loop playsinline>
-            <source src="{% static 'videos/Natural Insect Control Options.mp4' %}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <button id="playButton1" class="control-button play-button"><i class="fas fa-play"></i></button>
-          <button id="muteButton1" class="control-button mute-button"><i class="fas fa-volume-up"></i></button>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <br>
-        <div class="video-container position-relative">
-          <video id="video2" class="w-100 rounded" loop playsinline>
-            <source src="{% static 'videos/The Benefits of Using an Automatic Waterer for Horses.mp4' %}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <button id="playButton2" class="control-button play-button"><i class="fas fa-play"></i></button>
-          <button id="muteButton2" class="control-button mute-button"><i class="fas fa-volume-up"></i></button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .video-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .video-container video {
-    width: 100%;
-    height: auto;
-  }
-
-  .control-button {
-    position: absolute;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-  }
-
-  .control-button i {
-    color: white;
-  }
-
-  .control-button:hover {
-    opacity: 0.7;
-  }
-
-  .play-button {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .mute-button {
-    bottom: 20px;
-    right: 20px;
-  }
-</style>
-
-<script>
-  const video1 = document.getElementById('video1');
-  const video2 = document.getElementById('video2');
-
-  document.getElementById('playButton1').addEventListener('click', function() {
-    if (video1.paused) {
-      video1.play();
-      this.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-      video1.pause();
-      this.innerHTML = '<i class="fas fa-play"></i>';
-    }
-  });
-
-  document.getElementById('playButton2').addEventListener('click', function() {
-    if (video2.paused) {
-      video2.play();
-      this.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-      video2.pause();
-      this.innerHTML = '<i class="fas fa-play"></i>';
-    }
-  });
-
-  document.getElementById('muteButton1').addEventListener('click', function() {
-    if (video1.muted) {
-      video1.muted = false;
-      this.innerHTML = '<i class="fas fa-volume-up"></i>';
-    } else {
-      video1.muted = true;
-      this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-    }
-  });
-
-  document.getElementById('muteButton2').addEventListener('click', function() {
-    if (video2.muted) {
-      video2.muted = false;
-      this.innerHTML = '<i class="fas fa-volume-up"></i>';
-    } else {
-      video2.muted = true;
-      this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-    }
-  });
-</script>
-
-
-
-
-
-<section id="testimonials" class="padding-large">
-  <div class="container">
-    <h1 class="text-center">People are saying...</h1>
-    <br>
-    <div class="row">
-      <div class="col-lg-6 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <p>As a horse owner, warm weather always meant a battle with flies irritating my horse. Since discovering MountGuard, that's changed. The immediate protection it offers is astounding, keeping my horse calm and comfortable. MountGuard is now our go-to solution.</p>
-<p class="text-dark">Eleanor Fitzroy</p>
-</div>
-</div>
-</div>
-<div class="col-lg-6 mb-4">
-<div class="card">
-<div class="card-body">
-<p>I've been using MountGuard cream on my horse's open wounds, and it's been a lifesaver. Not only does it protect the wound from flies and bugs, but it also seems to soothe and heal. My horse is more comfortable, and recovery is quicker. A must-have for any horse owner!</p>
-<p class="text-dark">Lucas Montgomery</p>
-</div>
-</div>
-</div>
-</div>
-
-  </div>
-</section>
-<section id="natural-protection" class="padding-large" style="background-color: #ffffff;">
-  <div class="container">
-    <h1 class="text-center">Natural Equine Protection</h1>
-    <br>
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <p>All-natural protection that is kind to your horse and the environment.</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <a href="{% url 'product_list' %}">
-          <button class="btn btn-lg btn-success rounded-pill">VIEW THE RANGE</button>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="subscribe" class="padding-large" style="background-color: #f8f9fa;">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="display-header text-center">
-          <h2 class="text-uppercase">Subscribe Us Now</h2>
-          <p>Get latest news, updates, and deals directly mailed to your inbox.</p>
-        </div>
-      </div>
-      <div class="col-md-6">
-        {% if success_message %}
-          <div class="alert alert-success" role="alert">
-            {{ success_message }}
+      <div class="row px-xl-5 pb-3">
+        {% for product in products %}
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+          <div class="card product-item border-0 mb-4">
+            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 text-center">
+              <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.title }}" class="rounded img-fluid">
+            </div>
+            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+              <h6 class="text-truncate mb-3">{{ product.name }}</h6>
+              <div class="d-flex justify-content-center">
+                <h6>${{ product.price }}</h6>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between bg-light border">
+              <a href="{% url 'product_list' %}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+              <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+            </div>
           </div>
-        {% endif %}
-        {% if error_message %}
-          <div class="alert alert-danger" role="alert">
-            {{ error_message }}
-          </div>
-        {% endif %}
-        <form method="post" action="{% url 'subscribe' %}">
-          {% csrf_token %}
-          <div class="input-group mb-3">
-            <input type="email" class="form-control rounded-pill" name="EMAIL" placeholder="Your email address here" required>
-            <button type="submit" class="btn btn-primary rounded-pill">Subscribe</button>
-          </div>
-        </form>
+        </div>
+        {% endfor %}
       </div>
     </div>
-  </div>
-</section>
-{% endblock %}
+  </section>
+  <!-- Products End -->
+  
+
+    <!-- Subscribe Start -->
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-5 px-xl-5">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
+                    <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum eirmod duo labore labore.</p>
+                </div>
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-4">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Subscribe End -->
+
+
+   <!-- Products Start -->
+<section id="mobile-products" class="product-store padding-large">
+    <div class="container-fluid pt-5">
+      <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Just Arrived</span></h2>
+      </div>
+      <div class="row px-xl-5 pb-3">
+        {% for product in products %}
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+          <div class="card product-item border-0 mb-4">
+            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 text-center">
+              <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.title }}" class="rounded img-fluid">
+            </div>
+            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+              <h6 class="text-truncate mb-3">{{ product.name }}</h6>
+              <div class="d-flex justify-content-center">
+                <h6>${{ product.price }}</h6>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between bg-light border">
+              <a href="{% url 'product_detail' product.id %}" class="btn btn-sm text-dark p-0">
+                <i class="fas fa-eye text-primary mr-1"></i>View Detail
+              </a>
+              <a href="{% url 'add_to_cart' product.id %}" class="btn btn-sm text-dark p-0">
+                <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- Products End -->
+  
+
+    <!-- Vendor Start -->
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel">
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-1.jpg" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-2.jpg" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-3.jpg" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-4.jpg" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-5.jpg" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-6.jpg" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-7.jpg" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/vendor-8.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+
+
+    {% endblock %}
+

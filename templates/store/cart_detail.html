@@ -1,77 +1,137 @@
-{% extends "store/master.html" %}
+{% extends "store/base.html" %}
+
 {% block content %}
-<br><br><br><br>
-<div class="container py-5">
-    <h1 class="mb-4 text-center">Shopping Cart</h1>
-    <table class="table table-bordered table-hover">
-        <thead class="thead-primary">
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
-            <tr data-cart-item-id="{{ item.id }}">
-                <td>{{ item.product.name }}</td>
-                <td class="product-price" data-base-price="{{ item.product.price }}">Price: ${{ item.product.price }}</td>
-                <td>{{ item.quantity }}</td>
-                <td class="item-total-price" data-base-total="{{ item.total_price }}">Total: ${{ item.total_price }}</td>
-                <td>
-                    <div class="btn-group" role="group" aria-label="Quantity controls">
-                        <button class="btn btn-sm btn-outline-primary update-quantity" data-action="increase">+</button>
-                        <button class="btn btn-sm btn-outline-secondary update-quantity" data-action="decrease">-</button>
-                        <button class="btn btn-sm btn-outline-danger remove-item">Remove</button> <!-- Add this button -->
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h3 class="text-right ">Total: $<span id="cart-total">{{ total_price }}</span></h3>
-    <div class="text-right">
-        <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">Proceed to Checkout</a>
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Shopping Cart</p>
+            </div>
+        </div>
     </div>
-</div>
+    <!-- Page Header End -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-    $(document).ready(function(){
-        $('.update-quantity').click(function(){
-            var action = $(this).data('action');
-            var cartItemId = $(this).closest('tr').data('cart-item-id');
-            $.ajax({
-                url: '{% url "update_cart_item" 0 %}'.replace('0', cartItemId),
-                data: {'action': action},
-                success: function(data) {
-                    $('tr[data-cart-item-id="' + cartItemId + '"] .item-total-price').text('$' + data.total_price);
-                    var cartTotal = 0;
-                    $('.item-total-price').each(function(){
-                        cartTotal += parseFloat($(this).text().replace('$', ''));
-                    });
-                    $('#cart-total').text(cartTotal.toFixed(2));
-                }
+    <!-- Cart Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        {% for item in cart_items %}
+                        <tr data-cart-item-id="{{ item.id }}">
+                            <td class="align-middle"><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 50px;"> {{ item.product.name }}</td>
+                            <td class="align-middle" data-base-price="{{ item.product.price }}">${{ item.product.price }}</td>
+                            <td class="align-middle">
+                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-minus update-quantity" data-action="decrease">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="{{ item.quantity }}">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-plus update-quantity" data-action="increase">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle item-total-price" data-base-total="{{ item.total_price }}">${{ item.total_price }}</td>
+                            <td class="align-middle">
+                                <button class="btn btn-sm btn-primary remove-item"><i class="fa fa-times"></i></button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <form class="mb-5" action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Apply Coupon</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">${{ subtotal }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">${{ shipping }}</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">${{ total_price }}</h5>
+                        </div>
+                        <a href="{% url 'checkout' order.id %}" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart End -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.update-quantity').click(function(){
+                var action = $(this).data('action');
+                var cartItemId = $(this).closest('tr').data('cart-item-id');
+                $.ajax({
+                    url: '{% url "update_cart_item" 0 %}'.replace('0', cartItemId),
+                    data: {'action': action},
+                    success: function(data) {
+                        $('tr[data-cart-item-id="' + cartItemId + '"] .item-total-price').text('$' + data.total_price);
+                        var cartTotal = 0;
+                        $('.item-total-price').each(function(){
+                            cartTotal += parseFloat($(this).text().replace('$', ''));
+                        });
+                        $('#cart-total').text(cartTotal.toFixed(2));
+                    }
+                });
+            });
+    
+            $('.remove-item').click(function(){
+                var cartItemId = $(this).closest('tr').data('cart-item-id');
+                $.ajax({
+                    url: '{% url "remove_cart_item" 0 %}'.replace('0', cartItemId),
+                    success: function(data) {
+                        $('tr[data-cart-item-id="' + cartItemId + '"]').remove();
+                        var cartTotal = 0;
+                        $('.item-total-price').each(function(){
+                            cartTotal += parseFloat($(this).text().replace('$', ''));
+                        });
+                        $('#cart-total').text(cartTotal.toFixed(2));
+                    }
+                });
             });
         });
-
-        $('.remove-item').click(function(){
-            var cartItemId = $(this).closest('tr').data('cart-item-id');
-            $.ajax({
-                url: '{% url "update_cart_item" 0 %}'.replace('0', cartItemId), // Adjust the URL to your remove_cart_item view
-                success: function(data) {
-                    $('tr[data-cart-item-id="' + cartItemId + '"]').remove();
-                    var cartTotal = 0;
-                    $('.item-total-price').each(function(){
-                        cartTotal += parseFloat($(this).text().replace('$', ''));
-                    });
-                    $('#cart-total').text(cartTotal.toFixed(2));
-                }
-            });
-        });
-    });
-</script>
+    </script>
+    
 {% endblock %}

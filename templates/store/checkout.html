@@ -1,119 +1,194 @@
-{% extends 'store/master.html' %}
-{% load crispy_forms_tags %}
+{% extends "store/base.html" %}
 {% block content %}
-<div class="container py-5">
-    <div class="row">
-        <div class="col-lg-8">
-            <h2 class="mb-4 text-center">Billing Details</h2>
-            <form method="post" action="{% url 'checkout' %}" class="needs-validation" novalidate>
-                {% csrf_token %}
-                <!-- Billing details form fields -->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="first_name" required>
-                        <div class="invalid-feedback">
-                            Please enter your first name.
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="last_name" required>
-                        <div class="invalid-feedback">
-                            Please enter your last name.
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                    <div class="invalid-feedback">
-                        Please enter a valid email address.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
-                    <div class="invalid-feedback">
-                        Please enter your address.
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" name="city" required>
-                        <div class="invalid-feedback">
-                            Please enter your city.
-                        </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="state">State</label>
-                        <select id="state" class="form-control" name="state" required>
-                            <option value="" selected disabled>Choose...</option>
-                            <option>...</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select your state.
-                        </div>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" name="zip" required>
-                        <div class="invalid-feedback">
-                            Please enter your zip code.
-                        </div>
-                    </div>
-                </div>
-                <h2 class="mb-4 text-center">Payment Details</h2>
-                <div class="form-group">
-                    <label for="paymentMethod">Select Payment Method:</label>
-                    <select id="paymentMethod" name="payment_method" class="form-control" required>
-                        <option value="credit_card">Credit Card</option>
-                        <option value="paypal">PayPal</option>
-                        <option value="bank_transfer">Bank Transfer</option>
-                    </select>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Complete Order</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-lg-4">
-            <h2 class="mb-4 text-center">Order Summary</h2>
-            <ul class="list-group mb-3">
-                {% for item in cart.cartitem_set.all %}
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">{{ item.product.name }}</h6>
-                        <small class="text-muted">Quantity: {{ item.quantity }}</small>
-                    </div>
-                    <span class="text-muted">${{ item.product.price }}</span>
-                </li>
-                {% endfor %}
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>${{ total_price }}</strong>
-                </li>
-            </ul>
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Checkout</p>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    // JavaScript for form validation
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-</script>
+    <!-- Page Header End -->
+
+    <!-- Checkout Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                    <form method="POST" action="{% url 'checkout' order.id %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>First Name</label>
+                                <input class="form-control" type="text" name="first_name" placeholder="John" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Last Name</label>
+                                <input class="form-control" type="text" name="last_name" placeholder="Doe" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="email" name="email" placeholder="example@email.com" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" name="mobile" placeholder="+123 456 789" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address Line 1</label>
+                                <input class="form-control" type="text" name="address1" placeholder="123 Street" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address Line 2</label>
+                                <input class="form-control" type="text" name="address2" placeholder="123 Street">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Country</label>
+                                <select class="custom-select" name="country" required>
+                                    <option selected>United States</option>
+                                    <option>Afghanistan</option>
+                                    <option>Albania</option>
+                                    <option>Algeria</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" name="city" placeholder="New York" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>State</label>
+                                <input class="form-control" type="text" name="state" placeholder="New York" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>ZIP Code</label>
+                                <input class="form-control" type="text" name="zip" placeholder="123" required>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="newaccount">
+                                    <label class="custom-control-label" for="newaccount">Create an account</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="shipto">
+                                    <label class="custom-control-label" for="shipto" data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse mb-4" id="shipping-address">
+                            <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" name="shipping_first_name" placeholder="John">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Last Name</label>
+                                    <input class="form-control" type="text" name="shipping_last_name" placeholder="Doe">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="text" name="shipping_email" placeholder="example@email.com">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Mobile No</label>
+                                    <input class="form-control" type="text" name="shipping_mobile" placeholder="+123 456 789">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Address Line 1</label>
+                                    <input class="form-control" type="text" name="shipping_address1" placeholder="123 Street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Address Line 2</label>
+                                    <input class="form-control" type="text" name="shipping_address2" placeholder="123 Street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Country</label>
+                                    <select class="custom-select" name="shipping_country">
+                                        <option selected>United States</option>
+                                        <option>Afghanistan</option>
+                                        <option>Albania</option>
+                                        <option>Algeria</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>City</label>
+                                    <input class="form-control" type="text" name="shipping_city" placeholder="New York">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>State</label>
+                                    <input class="form-control" type="text" name="shipping_state" placeholder="New York">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>ZIP Code</label>
+                                    <input class="form-control" type="text" name="shipping_zip" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-secondary mb-5">
+                            <div class="card-header bg-secondary border-0">
+                                <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="font-weight-medium mb-3">Products</h5>
+                                {% for item in order_items %}
+                                <div class="d-flex justify-content-between">
+                                    <p>{{ item.product.name }} x {{ item.quantity }}</p>
+                                    <p>${{ item.total_price|floatformat:2 }}</p>
+                                </div>
+                                {% endfor %}
+                                
+                                <hr class="mt-0">
+                                <div class="d-flex justify-content-between mb-3 pt-1">
+                                    <h6 class="font-weight-medium">Subtotal</h6>
+                                    <h6 class="font-weight-medium">${{ subtotal|floatformat:2 }}</h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 pt-1">
+                                    <h6 class="font-weight-medium">Shipping</h6>
+                                    <h6 class="font-weight-medium">${{ shipping|floatformat:2 }}</h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 pt-1">
+                                    <h6 class="font-weight-medium">Total</h6>
+                                    <h6 class="font-weight-medium">${{ total_price|floatformat:2 }}</h6>
+                                </div>
+                                
+                        <div class="card border-secondary mb-5">
+                            <div class="card-header bg-secondary border-0">
+                                <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="payment" id="paypal" value="paypal" required>
+                                        <label class="custom-control-label" for="paypal">Paypal</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="payment" id="directcheck" value="direct_check">
+                                        <label class="custom-control-label" for="directcheck">Direct Check</label>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="payment" id="banktransfer" value="bank_transfer">
+                                        <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer border-secondary bg-transparent">
+                                <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit">Place Order</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
 {% endblock %}

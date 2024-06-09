@@ -4,30 +4,30 @@
 
 <head>
     <meta charset="utf-8">
-    <title>MountGuard</title>
+    <title>EShopper</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <link href="{% static 'img/melianshop-high-resolution-logo.png' %}" class="img-fluid" rel="icon">
     <!-- Libraries Stylesheet -->
-    <link href="{% static 'lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- Animate.css Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 
     <style>
         body {
@@ -70,12 +70,13 @@
         }
     </style>
 </head>
+
 <body>
     {% load django_bootstrap5 %}
-{% load widget_tweaks %}
-    {% load static %}
-    {% load crispy_forms_tags %}
-    {% load crispy_forms_filters %}
+    {% load widget_tweaks %}
+        {% load static %}
+        {% load crispy_forms_tags %}
+        {% load crispy_forms_filters %}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-10">
@@ -87,45 +88,74 @@
                                  class="img-fluid" alt="" style="height: 100px;">
                             </a>
                         </div>
-								<div class="mb-10 text-center">
-									<!--begin::Title-->
-									<h1 class="text-dark mb-3">Create an Account</h1>
-									<!--end::Title-->
-									<!--begin::Link-->
-									<div class="text-gray-400 fw-semibold fs-4">Already have an account?
-									<a href="{% url 'login-url'%}" class="link-primary fw-bold">Sign in here</a></div>
-									
-                                    <!--end::Link-->
-								</div>
-								<!--end::Heading-->
-<div class="w-lg-600px p-10 p-lg-15 mx-auto">
-    <!--begin::Form-->
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+                        <h3 class="card-title text-center">Create Account</h3>
+                        <form method="post" action="{% url 'register-url' %}">
+                            {% csrf_token %}
          {% bootstrap_form form %}
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Register</button>
+                            <div class="form-group text-center">
+                                <input class="btn btn-info  btn-lg roundedl mt-4" value="Register" type="submit">
+                            </div>
+                            <br>
+                            <div class="text-muted">Already have an account?
+                                <a href="{% url 'login-url'%}">SignIn</a>
+                            </div>
+                            <p class="mt-3">Go Back  <a class="text-primary" href="{% url 'home-url' %}">Homepage</a></p>
+                        
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <p>Or register with</p>
+                            <div class="social-buttons">
+                                <a href="" class="btn btn-outline-danger m-1">
+                                    <i class="fab fa-google"></i> Google
+                                </a>
+                                <a href="" class="btn btn-outline-primary m-1">
+                                    <i class="fab fa-facebook-f"></i> Facebook
+                                </a>
+                                <a href="" class="btn btn-outline-info m-1">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
-    <!--end::Form-->
-    <p class="mt-3">Go Back Home <a class="text-primary" href="{% url 'home-url' %}">Homepage</a></p>
-</div>
-<!--end::Wrapper-->
-            </div>
+    </div>
 
-            </div>
-            <!--end::Content-->
-            <!--end::Root-->
-            <!--begin::Javascript-->
-            <script>var hostUrl = "dashbord/assets/";</script>
-            <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-            <script src="{% static 'dashbord/assets/plugins/global/plugins.bundle.js' %}"></script>
-            <script src="{% static 'dashbord/assets/js/scripts.bundle.js' %}"></script>
-            <!--end::Global Javascript Bundle-->
-            <!--begin::Custom Javascript(used for this page only)-->
-            <script src="{% static 'dashbord/assets/js/custom/authentication/sign-up/general.js' %}"></script>
-            <!--end::Custom Javascript-->
-            <!--end::Javascript-->
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+ <!--Start of Tawk.to Script-->
+ <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/665492ba9a809f19fb359301/1hut5qb1c';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <!-- Include AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
 </body>
-<!--end::Body-->
-</html>				
+
+</html>

@@ -30,7 +30,7 @@ def dashboard(request):
     user = request.user
     username = user.username
     email = user.email
-    return render(request, 'store/index.html', {'username': username, 'email': email})
+    return render(request, 'store/product_list.html', {'username': username, 'email': email})
 
 @login_required
 def change_password(request):

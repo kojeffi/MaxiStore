@@ -205,3 +205,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 # Define the directory where media files will be uploadeMEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_REDIRECT_URL = 'product_list'
+LOGIN_URL = 'login-url'
+
+LOGOUT_REDIRECT_URL = 'logout-url'
