@@ -253,3 +253,140 @@ def search(request):
     query = request.GET.get('q')
     results = Product.objects.filter(name__icontains=query) if query else []
     return render(request, 'store/product_list.html', {'query': query, 'results': results})
+
+
+# machine learning part
+# ecommerce/views.py
+import requests
+import logging
+from django.conf import settings
+from django.shortcuts import render
+from .models import Product
+
+logger = logging.getLogger(__name__)
+
+def _make_ml_request(url, method="GET", data=None):
+    try:
+        if method == "POST":
+            response = requests.post(url, json=data)
+        else:
+            response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error with ML API request: {e}")
+        return {}
+    except ValueError as e:
+        logger.error(f"Error decoding JSON response: {e}")
+        return {}
+
+def get_recommendations(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/recommend_products/{user_id}/") or []
+
+def get_dynamic_pricing(product_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/dynamic_pricing/{product_id}/")
+
+def get_customer_segments():
+    return _make_ml_request(f"{settings.ML_API_URL}/customer_segmentation/")
+
+def get_churn_predictions():
+    return _make_ml_request(f"{settings.ML_API_URL}/churn_prediction/")
+
+def detect_fraud(transaction):
+    return _make_ml_request(f"{settings.ML_API_URL}/fraud_detection/", method="POST", data=transaction)
+
+def analyze_sentiment(review):
+    return _make_ml_request(f"{settings.ML_API_URL}/sentiment_analysis/", method="POST", data={"review": review})
+
+def get_demand_forecast():
+    return _make_ml_request(f"{settings.ML_API_URL}/forecast_demand/")
+
+def understand_user_query(query):
+    return _make_ml_request(f"{settings.ML_API_URL}/understand_query/", method="POST", data={"query": query})
+
+def image_based_search(image):
+    return _make_ml_request(f"{settings.ML_API_URL}/image_search/", method="POST", data={"image": image})
+
+def predict_customer_lifetime_value(customer_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/predict_clv/{customer_id}/")
+
+def recommend_product_bundles(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/recommend_bundles/{user_id}/")
+
+def personalize_email_content(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/personalize_email/{user_id}/")
+
+def adaptive_search_ranking(query, user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/adaptive_ranking/", method="POST", data={"query": query, "user_id": user_id})
+
+def personalize_user_experience(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/personalize_experience/{user_id}/")
+
+def recover_abandoned_cart(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/recover_abandoned_cart/{user_id}/")
+
+def process_voice_search(voice_input):
+    return _make_ml_request(f"{settings.ML_API_URL}/voice_search/", method="POST", data={"voice_input": voice_input})
+
+def predict_trends():
+    return _make_ml_request(f"{settings.ML_API_URL}/predict_trends/")
+
+def chatbot_support(user_query):
+    return _make_ml_request(f"{settings.ML_API_URL}/support_chatbot/", method="POST", data={"query": user_query})
+
+def monitor_website_security():
+    return _make_ml_request(f"{settings.ML_API_URL}/monitor_security/")
+
+def analyze_user_behavior(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/analyze_behavior/{user_id}/")
+
+def create_dynamic_landing_page(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/create_dynamic_page/{user_id}/")
+
+def analyze_social_media_activity(user_id):
+    return _make_ml_request(f"{settings.ML_API_URL}/analyze_social_media/{user_id}/")
+
+def optimize_supply_chain():
+    return _make_ml_request(f"{settings.ML_API_URL}/optimize_supply_chain/")
+
+def fetch_analytics_dashboard():
+    return _make_ml_request(f"{settings.ML_API_URL}/analytics_dashboard/")
+
+def product_list(request):
+    products = Product.objects.all()
+    recommended_products = []
+    
+    if request.user.is_authenticated:
+        recommendations = get_recommendations(request.user.id)
+        if recommendations:
+            recommended_products = Product.objects.filter(id__in=recommendations)
+    
+    context = {
+        'products': products,
+        'recommended_products': recommended_products,
+        'dynamic_pricing': get_dynamic_pricing(request.GET.get('product_id')) or {},
+        'customer_segments': get_customer_segments() or {},
+        'churn_predictions': get_churn_predictions() or {},
+        'fraud_detection': detect_fraud(request.POST) or {},
+        'sentiment_analysis': analyze_sentiment(request.POST.get('review')) or {},
+        'demand_forecast': get_demand_forecast() or {},
+        'understood_query': understand_user_query(request.POST.get('query')) or {},
+        'image_search_results': image_based_search(request.POST.get('image')) or {},
+        'predicted_clv': predict_customer_lifetime_value(request.GET.get('customer_id')) or {},
+        'bundled_recommendations': recommend_product_bundles(request.user.id) or {},
+        'personalized_email': personalize_email_content(request.user.id) or {},
+        'adaptive_ranking_results': adaptive_search_ranking(request.GET.get('query'), request.user.id) or {},
+        'personalized_experience': personalize_user_experience(request.user.id) or {},
+        'abandoned_cart_recovery': recover_abandoned_cart(request.user.id) or {},
+        'voice_search_results': process_voice_search(request.POST.get('voice_input')) or {},
+        'predicted_trends': predict_trends() or {},
+        'chatbot_response': chatbot_support(request.POST.get('user_query')) or {},
+        'security_alerts': monitor_website_security() or {},
+        'user_behavior': analyze_user_behavior(request.user.id) or {},
+        'dynamic_landing_page': create_dynamic_landing_page(request.user.id) or {},
+        'social_media_analysis': analyze_social_media_activity(request.user.id) or {},
+        'supply_chain_optimization': optimize_supply_chain() or {},
+        'real_time_analytics': fetch_analytics_dashboard() or {},
+    }
+    
+    return render(request, 'store/product_list.html', context)

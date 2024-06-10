@@ -96,6 +96,132 @@
 </div>
 <!-- Shop Product End -->
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            margin-top: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .img2 {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product List</h1>
+
+        <h2>All Products</h2>
+        <ul>
+            {% for product in products %}
+            <li><img class="img2" src="{{ product.image.url }}" alt="{{ product.name }}"> {{ product.name }} - ${{ product.price }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Recommended Products</h2>
+        <ul>
+            {% if recommended_products %}
+                {% for product in recommended_products %}
+                <li><img class="img2" src="{{ product.image.url }}" alt="{{ product.name }}"> {{ product.name }} - ${{ product.price }}</li>
+                {% endfor %}
+            {% else %}
+                <li>No recommendations available</li>
+            {% endif %}
+        </ul>
+        <!-- <h2>Machine Learning Features</h2>
+        <div>
+            <h3>Dynamic Pricing</h3>
+            <p>{{ dynamic_pricing }}</p>
+
+            <h3>Customer Segments</h3>
+            <p>{{ customer_segments }}</p>
+
+            <h3>Churn Predictions</h3>
+            <p>{{ churn_predictions }}</p>
+
+            <h3>Fraud Detection</h3>
+            <p>{{ fraud_detection }}</p>
+
+            <h3>Sentiment Analysis</h3>
+            <p>{{ sentiment_analysis }}</p>
+
+            <h3>Demand Forecast</h3>
+            <p>{{ demand_forecast }}</p>
+
+            <h3>Understood Query</h3>
+            <p>{{ understood_query }}</p>
+
+            <h3>Image Search Results</h3>
+            <p>{{ image_search_results }}</p>
+
+            <h3>Predicted Customer Lifetime Value</h3>
+            <p>{{ predicted_clv }}</p>
+
+            <h3>Bundled Recommendations</h3>
+            <p>{{ bundled_recommendations }}</p>
+
+            <h3>Personalized Email Content</h3>
+            <p>{{ personalized_email }}</p>
+
+            <h3>Adaptive Search Ranking Results</h3>
+            <p>{{ adaptive_ranking_results }}</p>
+
+            <h3>Personalized User Experience</h3>
+            <p>{{ personalized_experience }}</p>
+
+            <h3>Abandoned Cart Recovery</h3>
+            <p>{{ abandoned_cart_recovery }}</p>
+
+            <h3>Voice Search Results</h3>
+            <p>{{ voice_search_results }}</p>
+
+            <h3>Predicted Trends</h3>
+            <p>{{ predicted_trends }}</p>
+
+            <h3>Chatbot Response</h3>
+            <p>{{ chatbot_response }}</p>
+
+            <h3>Security Alerts</h3>
+            <p>{{ security_alerts }}</p>
+
+            <h3>User Behavior Analysis</h3>
+            <p>{{ user_behavior }}</p>
+
+            <h3>Dynamic Landing Page</h3>
+            <p>{{ dynamic_landing_page }}</p>
+
+            <h3>Social Media Analysis</h3>
+            <p>{{ social_media_analysis }}</p>
+
+            <h3>Supply Chain Optimization</h3>
+            <p>{{ supply_chain_optimization }}</p>
+
+            <h3>Real-Time Analytics</h3>
+            <p>{{ real_time_analytics }}</p>
+        </div> -->
+    </div>
         </div>
     </div>
     <!-- Shop End -->
