@@ -1,12 +1,14 @@
 from django.contrib import admin
-from .models import Product, Order, Review, Wishlist
+from .models import Product, Cart, CartItem, Order, OrderItem, Review, Wishlist, BlogPost, FAQ, PolicyPage
 
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'stock', 'category')
-    search_fields = ('name', 'category')
-    list_filter = ('category',)
-
-admin.site.register(Product, ProductAdmin)
+admin.site.register(Product)
+admin.site.register(Cart)
+admin.site.register(CartItem)
 admin.site.register(Order)
+admin.site.register(OrderItem)
 admin.site.register(Review)
 admin.site.register(Wishlist)
+admin.site.register(BlogPost)
+admin.site.register(FAQ)
+admin.site.register(PolicyPage)
+

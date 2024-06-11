@@ -3,6 +3,18 @@
 
 {% block content %}
 <br>
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Shop</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
     <!-- Shop Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
@@ -18,7 +30,7 @@
             <!-- Shop Sidebar End -->
 
 
-          <!-- Shop Product Start -->
+<!-- Shop Product Start -->
 <div class="col-lg-9 col-md-12">
     <div class="row pb-3">
         <div class="col-12 pb-1">
@@ -47,6 +59,7 @@
             </div>
         </div>
         <!-- Product Loop Start -->
+        <p>{{ voice_search_results }}</p>
         {% for product in products %}
         <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
             <div class="card product-item border-0 mb-4">
@@ -60,7 +73,9 @@
                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                     <h6 class="text-truncate mb-3">{{ product.name }}</h6>
                     <div class="d-flex justify-content-center">
-                        <h6>${{ product.price }}</h6>
+                        <h6 class="mr-2">Price: <span class="price">${{ product.price }}</span></h6>
+                        <h6 class="mr-2">Discount: <span class="discount">{{ product.discount }}%</span></h6>
+                        <h6>Final Price: <span class="final-price">${{ product.final_price }}</span></h6>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between bg-light border">
@@ -127,6 +142,16 @@
             margin-right: 10px;
             vertical-align: middle;
         }
+        .price, .discount, .final-price {
+    font-weight: bold;
+    color: #ffc107; /* Yellow color */
+    margin: 5px 0;
+}
+
+.final-price {
+    color: #28a745; /* Green color */
+}
+
     </style>
 </head>
 <body>

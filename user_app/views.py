@@ -89,7 +89,7 @@ def contact(request):
         )
         return JsonResponse({'success': True})
 
-    return render(request, 'index.html')
+    return render(request, 'user_app/contact.html')
 
 def chatbot_view(request):
     if request.method == 'POST':

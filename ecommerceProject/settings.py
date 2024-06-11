@@ -108,7 +108,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecommerceProject.wsgi.application'
+
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # Database
 DATABASES = {
@@ -122,13 +124,20 @@ database_url = os.environ.get('DATABASE_URL')
 if database_url:
     DATABASES["default"] = dj_database_url.parse(database_url)
 
+
+
 # Password validation
+# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -138,10 +147,27 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Secure Cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
 # Internationalization
+# https://docs.djangoproject.com/en/5.0/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_TZ = True
 
 

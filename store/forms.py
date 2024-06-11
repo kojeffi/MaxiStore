@@ -33,3 +33,12 @@ class ReviewForm(forms.ModelForm):
             'rating': forms.NumberInput(attrs={'min': 1, 'max': 5}),
             'comment': forms.Textarea(attrs={'rows': 4}),
         }
+
+
+from django import forms
+from .models import BlogPost
+
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'content']

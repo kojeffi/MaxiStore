@@ -10,7 +10,9 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <!-- <link href="{% static 'img/favicon.ico' %}" rel="icon"> -->
+
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -27,31 +29,57 @@
 
     <!-- Animate.css Stylesheet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 </head>
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid fixed-top bg-white shadow-sm animated fadeInDown">
+    <div class="container-fluid bg-white shadow-sm animated fadeInDown">
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
                     <h2 class="m-0 display-5 font-weight-semi-bold">
-                        <span class="text-primary font-weight-bold border px-3 mr-1 animate__animated animate__bounceInLeft">M</span>Mount Guard
+                        <span class="text-primary font-weight-bold border px-3 mr-1 animate__animated animate__bounceInLeft">
+                         M</span>Mount Guard
                     </h2>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
+                <form action="" method="POST" id="search-form">
+                    {% csrf_token %}
                     <div class="input-group animate__animated animate__fadeIn">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" name="query" id="search-input" placeholder="Search for products">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <span class="input-group-text bg-transparent text-primary" style="cursor: pointer;" onclick="submitSearchForm()">
                                 <i class="fa fa-search"></i>
                             </span>
+                            <button type="button" onclick="startVoiceSearch()" class="btn btn-primary">
+                                <i class="fa fa-microphone"></i> Voice Search
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
+            <script>
+                function submitSearchForm() {
+                    document.getElementById("search-form").submit();
+                }
+            </script>
+            <script>
+                function startVoiceSearch() {
+                    if ('webkitSpeechRecognition' in window) {
+                        const recognition = new webkitSpeechRecognition();
+                        recognition.lang = 'en-US';
+                        recognition.start();
+                        recognition.onresult = function(event) {
+                            document.getElementById('search-input').value = event.results[0][0].transcript;
+                            document.getElementById('search-form').submit();
+                        };
+                    } else {
+                        alert("Your browser does not support voice recognition.");
+                    }
+                }
+            </script>
             <div class="col-lg-3 col-6 text-right">
                 <a href="{% url 'wishlist_detail' %}" class="btn border animate__animated animate__bounceIn">
                     <i class="fas fa-heart text-primary"></i>
@@ -67,7 +95,7 @@
     <!-- Topbar End -->
 
        <!-- Navbar Start -->
-       <div class="container-fluid mt-5 pt-4" style="top: 50px;">
+       <div class="container-fluid">
         <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100 animate__animated animate__fadeInLeft" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
@@ -128,6 +156,7 @@
     {% block content %}
 
     {% endblock %}
+
 <!-- Footer Start -->
 <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
     <div class="row px-xl-5 pt-5">
@@ -157,9 +186,12 @@
                         <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                         <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Faqs</a>
-                        
-                        <a class="text-dark" href=""><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        <a class="text-dark mb-2" href="{% url 'faq_list' %}"><i class="fa fa-angle-right mr-2"></i>Faqs</a>
+                        <a class="text-dark mb-2" href="{% url 'blog_list' %}">
+                            <i class="fa fa-angle-right mr-2"></i>blog</a>
+                        <a class="text-dark mb-2" href="{% url 'policy_page_detail' policy_page_id=1 %}">
+                            <i class="fa fa-angle-right mr-2"></i>policy page</a>
+                        <a class="text-dark" href="{% url 'contact' %}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -223,6 +255,27 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+    
+ <!--Start of Tawk.to Script-->
+ <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/665492ba9a809f19fb359301/1hut5qb1c';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <!-- Include AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
 </body>
 
 </html>

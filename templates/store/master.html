@@ -4,13 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper</title>
+    <title>MountGuard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <!-- <link href="{% static 'img/favicon.ico' %}" rel="icon"> -->
+
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -32,27 +34,52 @@
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid fixed-top bg-white shadow-sm animated fadeInDown">
+    <div class="container-fluid bg-white shadow-sm animated fadeInDown">
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
                     <h2 class="m-0 display-5 font-weight-semi-bold">
-                        <span class="text-primary font-weight-bold border px-3 mr-1 animate__animated animate__bounceInLeft">M</span>Mount Guard
+                        <span class="text-primary font-weight-bold border px-3 mr-1 animate__animated animate__bounceInLeft">
+                         M</span>Mount Guard
                     </h2>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
+                <form action="" method="POST" id="search-form">
+                    {% csrf_token %}
                     <div class="input-group animate__animated animate__fadeIn">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" name="query" id="search-input" placeholder="Search for products">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <span class="input-group-text bg-transparent text-primary" style="cursor: pointer;" onclick="submitSearchForm()">
                                 <i class="fa fa-search"></i>
                             </span>
+                            <button type="button" onclick="startVoiceSearch()" class="btn btn-primary">
+                                <i class="fa fa-microphone"></i> Voice Search
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
+            <script>
+                function submitSearchForm() {
+                    document.getElementById("search-form").submit();
+                }
+            </script>
+            <script>
+                function startVoiceSearch() {
+                    if ('webkitSpeechRecognition' in window) {
+                        const recognition = new webkitSpeechRecognition();
+                        recognition.lang = 'en-US';
+                        recognition.start();
+                        recognition.onresult = function(event) {
+                            document.getElementById('search-input').value = event.results[0][0].transcript;
+                            document.getElementById('search-form').submit();
+                        };
+                    } else {
+                        alert("Your browser does not support voice recognition.");
+                    }
+                }
+            </script>
             <div class="col-lg-3 col-6 text-right">
                 <a href="{% url 'wishlist_detail' %}" class="btn border animate__animated animate__bounceIn">
                     <i class="fas fa-heart text-primary"></i>
@@ -68,7 +95,7 @@
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
-    <div class="container-fluid mt-5 pt-4" style="top: 50px;">
+    <div class="container-fluid">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100 animate__animated animate__fadeInLeft" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
@@ -87,7 +114,6 @@
                         <a href="" class="nav-item nav-link animate__animated animate__fadeInLeft">Wishlist</a>
                     </div>
                 </nav>
-                
             </div>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 animate__animated animate__fadeIn">
@@ -125,118 +151,187 @@
         </div>
     </div>
     <!-- Navbar End -->
-<br>
-<div class="container-fluid px-5">
-    <div id="header-carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            {% for product in products %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}" style="max-height: 70vh; object-fit: contain;">
-                    </div>
-                    <div class="col-md-6 d-none d-md-block">
-                        <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}" style="max-height: 70vh; object-fit: contain;">
-                    </div>
-                </div>
-                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center animated fadeInUp delay-1s">
-                    <div class="p-3 text-center animated slideInDown" style="border-radius: 15px; background-color: rgba(0, 0, 0, 0.5);">
-                        <h5 class="text-light font-weight-bold mb-3 animated fadeInDown delay-1s">{{ product.name }}</h5>
-                        <p class="text-light lead animated fadeIn delay-1s">${{ product.price }}</p>
-                        <div class="mt-4">
-                            <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary mr-3 animated fadeInUp delay-2s">View Detail</a>
-                            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-light animated fadeInUp delay-2s">Add To Cart</a>
-                        </div>
-                    </div>
+
+    <!-- Carousel and Dashboard Start -->
+    <div class="container-fluid mt-4">
+        <div class="row px-xl-5">
+            <!-- Dashboard Column -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="bg-light p-3 rounded shadow-sm animate__animated animate__fadeInLeft">
+                    <h4 class="font-weight-bold">Dashboard</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="" class="nav-link text-dark">Home</a></li>
+                        <li><a href="" class="nav-link text-dark">Shop</a></li>
+                        <li><a href="" class="nav-link text-dark">Shop Details</a></li>
+                        <li><a href="" class="nav-link text-dark">Shopping Cart</a></li>
+                        <li><a href="" class="nav-link text-dark">Checkout</a></li>
+                        <li><a href="" class="nav-link text-dark">Wishlist</a></li>
+                    </ul>
                 </div>
             </div>
-            {% endfor %}
+            <!-- Carousel Column -->
+            <div class="col-lg-9">
+                <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for product in products %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}" style="max-height: 70vh; object-fit: contain;">
+                                </div>
+                                <div class="col-md-6 d-none d-md-block">
+                                    <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}" style="max-height: 70vh; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="carousel-caption d-flex flex-column justify-content-center align-items-center animated fadeInUp delay-1s" style="width: 100%; height: 100%;">
+                                <p class="text-light font-weight-bold mb-3 animated fadeInDown delay-1s">{{ product.name }}</p>
+                                <p class="text-light lead animated fadeIn delay-1s">
+                                    <span class="price text-primary">Price: ${{ product.price }}</span><br>
+                                    <span class="discount text-primary">Discount: {{ product.discount }}%</span><br>
+                                    <span class="final-price text-white">Final Price: ${{ product.final_price|floatformat:2 }}</span>
+                                </p>
+                                <div class="mt-4 d-flex flex-column align-items-center flex-md-row">
+                                    <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary animated fadeInUp delay-2s mb-2 mb-md-0 mr-md-3">View Detail</a>
+                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-light animated fadeInUp delay-2s">Add To Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#header-carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon animated fadeInLeft delay-2s" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon animated fadeInRight delay-2s" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
         </div>
-        <a class="carousel-control-prev" href="#header-carousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon animated fadeInLeft delay-2s" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon animated fadeInRight delay-2s" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
-</div>
+    <!-- Carousel and Dashboard End -->
+    
+<style>
+.carousel-caption {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust the alpha value for transparency */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Padding inside caption */
+}
 
-    <style>
-    .carousel-inner .carousel-item {
-        transition: transform 0.6s ease-in-out;
+.carousel-caption p {
+    margin: 5px 0;
+}
+
+.price, .discount, .final-price {
+    font-weight: bold;
+}
+
+.price {
+    color: #ffc107; /* Yellow color */
+}
+
+.discount {
+    color: #ffc107; /* Yellow color */
+}
+
+.final-price {
+    color: #28a745; /* Green color */
+}
+
+/* Media query for smaller devices */
+@media (max-width: 768px) {
+    .carousel-caption {
+        padding: 10px;
+        text-align: center;
     }
-    
-    .carousel-item img {
-        animation: zoomIn 1.5s ease-in-out;
-        max-height: 70vh;
-        object-fit: contain;
+
+    .carousel-caption .mt-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    
-    @keyframes zoomIn {
-        0% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
+
+    .carousel-caption .mt-4 .btn {
+        margin-bottom: 10px;
     }
-    
-    .carousel-caption .animated {
-        animation-duration: 2s;
+}
+
+.carousel-inner .carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item img {
+    animation: zoomIn 1.5s ease-in-out;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(1.1);
     }
-    
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        width: 45px;
-        height: 45px;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
+    100% {
+        transform: scale(1);
     }
-    
-    .carousel-control-prev-icon:after,
-    .carousel-control-next-icon:after {
-        font-size: 20px;
-        color: white;
-    }
-    
-    .carousel-control-prev-icon:after {
-        content: '<';
-    }
-    
-    .carousel-control-next-icon:after {
-        content: '>';
-    }
-    
-    .animated.fadeInLeft,
-    .animated.fadeInRight {
-        animation-duration: 1.5s;
-    }
-    
-    .animated.fadeInUp {
-        animation-duration: 2s;
-        animation-delay: 0.5s;
-    }
-    
-    /* Custom animations */
-    .animated.slideInDown {
-        animation-duration: 2s;
-        animation-delay: 1s;
-    }
-    
-    .animated.fadeInDown {
-        animation-duration: 2s;
-        animation-delay: 1.5s;
-    }
-    
-    .animated.fadeIn {
-        animation-duration: 2s;
-        animation-delay: 1.5s;
-    }
-    </style>
-    
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+}
+
+.carousel-caption .animated {
+    animation-duration: 2s;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 45px;
+    height: 45px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.carousel-control-prev-icon:after,
+.carousel-control-next-icon:after {
+    font-size: 20px;
+    color: white;
+}
+
+.carousel-control-prev-icon:after {
+    content: '<';
+}
+
+.carousel-control-next-icon:after {
+    content: '>';
+}
+
+.animated.fadeInLeft,
+.animated.fadeInRight {
+    animation-duration: 1.5s;
+}
+
+.animated.fadeInUp {
+    animation-duration: 2s;
+    animation-delay: 0.5s;
+}
+
+/* Custom animations */
+.animated.slideInDown {
+    animation-duration: 2s;
+    animation-delay: 1s;
+}
+
+.animated.fadeInDown {
+    animation-duration: 2s;
+    animation-delay: 1.5s;
+}
+
+.animated.fadeIn {
+    animation-duration: 2s;
+    animation-delay: 1.5s;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     {% block content %}
 
@@ -271,9 +366,12 @@
                         <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                         <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Faqs</a>
-                        
-                        <a class="text-dark" href=""><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        <a class="text-dark mb-2" href="{% url 'faq_list' %}"><i class="fa fa-angle-right mr-2"></i>Faqs</a>
+                        <a class="text-dark mb-2" href="{% url 'blog_list' %}">
+                            <i class="fa fa-angle-right mr-2"></i>blog</a>
+                        <a class="text-dark mb-2" href="{% url 'policy_page_detail' policy_page_id=1 %}">
+                            <i class="fa fa-angle-right mr-2"></i>policy page</a>
+                        <a class="text-dark" href="{% url 'contact' %}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">

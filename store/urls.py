@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (
-    index, search, order_detail, leave_review, wishlist_detail,
+    blog_detail,blog_list,create_blog_post,index, search, order_detail, leave_review, wishlist_detail,
     add_to_wishlist, remove_from_wishlist, cart_detail, add_to_cart,
-    update_cart_item, product_list, product_detail, add_product, checkout, order_history, remove_cart_item  # Import the new view
+    update_cart_item,blog_post_detail,faq_list,policy_page_detail, product_list, product_detail, add_product, checkout, order_history, remove_cart_item  # Import the new view
 )
 
 urlpatterns = [
@@ -22,4 +22,13 @@ urlpatterns = [
     path('remove_from_wishlist/<int:product_id>/', remove_from_wishlist, name='remove_from_wishlist'),
     path('product/<int:product_id>/review/', leave_review, name='leave_review'),
     path('search/', search, name='search'),
+    path('blog/<int:blog_post_id>/', blog_post_detail, name='blog_post_detail'),
+    path('faq/', faq_list, name='faq_list'),
+    path('policy/<int:policy_page_id>/', policy_page_detail, name='policy_page_detail'),
+
+    path('create_blog_post/', create_blog_post, name='create_blog_post'),
+    path('blog/', blog_list, name='blog_list'),
+
+    path('create_blog_post/', create_blog_post, name='create_blog_post'),
+    path('blog/<int:blog_post_id>/', blog_detail, name='blog_detail'),
 ]

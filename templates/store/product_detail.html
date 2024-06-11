@@ -32,6 +32,8 @@
             <p class="card-text product-price text-primary font-weight-bold" data-base-price="{{ product.price }}">
                 Price: $<span id="total-price">{{ product.price }}</span>
             </p>
+            <h6 class="mr-2">Discount: <span class="discount">{{ product.discount }}%</span></h6>
+            <h6>Final Price: <span class="final-price">${{ product.final_price }}</span></h6>
             <p class="text-primary mb-4">Stock: {{ product.stock }}</p>
 
             <!-- Quantity Selector Start -->
