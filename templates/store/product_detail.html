@@ -21,23 +21,23 @@
     <div class="row">
         <div class="col-lg-6">
             {% if product.image %}
-            <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+            <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}" data-aos="fade-right">
             {% else %}
-            <img src="https://via.placeholder.com/400" class="img-fluid rounded shadow" alt="No image available">
+            <img src="https://via.placeholder.com/400" class="img-fluid rounded shadow" alt="No image available" data-aos="fade-right">
             {% endif %}
         </div>
         <div class="col-lg-6">
-            <h1 class="mb-4">{{ product.name }}</h1>
-            <p class="text-muted mb-4">{{ product.description }}</p>
-            <p class="card-text product-price text-primary font-weight-bold" data-base-price="{{ product.price }}">
+            <h1 class="mb-4" data-aos="fade-up">{{ product.name }}</h1>
+            <p class="text-muted mb-4" data-aos="fade-up">{{ product.description }}</p>
+            <p class="card-text product-price text-primary font-weight-bold" data-base-price="{{ product.price }}" data-aos="fade-up">
                 Price: $<span id="total-price">{{ product.price }}</span>
             </p>
-            <h6 class="mr-2">Discount: <span class="discount">{{ product.discount }}%</span></h6>
-            <h6>Final Price: <span class="final-price">${{ product.final_price }}</span></h6>
-            <p class="text-primary mb-4">Stock: {{ product.stock }}</p>
+            <h6 class="mr-2" data-aos="fade-up">Discount: <span class="discount">{{ product.discount }}%</span></h6>
+            <h6 data-aos="fade-up">Final Price: <span class="final-price">${{ product.final_price }}</span></h6>
+            <p class="text-primary mb-4" data-aos="fade-up">Stock: {{ product.stock }}</p>
 
             <!-- Quantity Selector Start -->
-            <div class="input-group mb-4" style="max-width: 200px;">
+            <div class="input-group mb-4" style="max-width: 200px;" data-aos="fade-up">
                 <div class="input-group-prepend">
                     <button class="btn btn-outline-secondary" type="button" id="decrease-quantity">-</button>
                 </div>
@@ -48,7 +48,7 @@
             </div>
             <!-- Quantity Selector End -->
 
-            <div class="mb-4">
+            <div class="mb-4" data-aos="fade-up">
                 <a href="{% url 'add_to_wishlist' product.id %}" id="add-to-cart-link" data-product-id="{{ product.id }}">
                     <button class="btn btn-outline-primary rounded-pill mr-3">
                         <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
@@ -61,14 +61,14 @@
                 </a>
             </div>
 
-            <div class="d-flex align-items-center mb-4">
+            <div class="d-flex align-items-center mb-4" data-aos="fade-up">
                 <span class="mr-3">Share:</span>
                 <a href="https://facebook.com" class="btn btn-sm btn-outline-primary rounded-pill mr-2"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://twitter.com" class="btn btn-sm btn-outline-info rounded-pill mr-2"><i class="fab fa-twitter"></i></a>
                 <a href="https://pinterest.com" class="btn btn-sm btn-outline-danger rounded-pill"><i class="fab fa-pinterest-p"></i></a>
             </div>
 
-            <div class="reviews mt-5">
+            <div class="reviews mt-5" data-aos="fade-up">
                 <h2 class="mb-3">Reviews</h2>
                 <ul class="list-unstyled">
                     {% for review in reviews %}
@@ -87,6 +87,38 @@
     </div>
 </div>
 <!-- Product Detail End -->
+
+<!-- Similar Products Section Start -->
+<div class="container py-5">
+    <h2 class="text-center mb-4" data-aos="fade-up">Similar Products</h2>
+    <div class="row">
+        {% for similar_product in similar_products %}
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
+            <div class="card product-item border-0">
+                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                    {% if similar_product.image %}
+                    <img class="img-fluid w-100" src="{{ similar_product.image.url }}" alt="{{ similar_product.name }}">
+                    {% else %}
+                    <img class="img-fluid w-100" src="https://via.placeholder.com/200" alt="No image available">
+                    {% endif %}
+                </div>
+                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                    <h6 class="text-truncate mb-3">{{ similar_product.name }}</h6>
+                    <div class="d-flex justify-content-center">
+                        <h6 class="mr-2">Price: <span class="price">${{ similar_product.price }}</span></h6>
+                        <h6 class="mr-2">Discount: <span class="discount">{{ similar_product.discount }}%</span></h6>
+                        <h6>Final Price: <span class="final-price">${{ similar_product.final_price }}</span></h6>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border">
+                    <a href="{% url 'product_detail' similar_product.id %}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Similar Products Section End -->
 
 <style>
     .container img {
@@ -153,8 +185,10 @@
     }
 </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        AOS.init();
         const decreaseQuantityButton = document.getElementById('decrease-quantity');
         const increaseQuantityButton = document.getElementById('increase-quantity');
         const quantityInput = document.getElementById('quantity');

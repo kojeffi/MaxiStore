@@ -4,6 +4,7 @@ from .views import (
     add_to_wishlist, remove_from_wishlist, cart_detail, add_to_cart,
     update_cart_item,blog_post_detail,faq_list,policy_page_detail, product_list, product_detail, add_product, checkout, order_history, remove_cart_item  # Import the new view
 )
+from ml.urls import urlpatterns as ml_urls
 
 urlpatterns = [
     path('', index, name='home-url'),
@@ -32,3 +33,4 @@ urlpatterns = [
     path('create_blog_post/', create_blog_post, name='create_blog_post'),
     path('blog/<int:blog_post_id>/', blog_detail, name='blog_detail'),
 ]
+urlpatterns += ml_urls
