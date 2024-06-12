@@ -50,7 +50,9 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Machine learning API
-ML_API_URL = 'http://localhost:8000/ml'
+# ML_API_URL = 'http://localhost:8000/ml'
+
+ML_API_URL = ''
 
 # Logging Configuration
 LOGGING = {
