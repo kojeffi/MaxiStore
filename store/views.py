@@ -442,7 +442,7 @@ from django.shortcuts import render
 from .models import Product
 
 
-ML_API_URL = 'https://maxistore.onrender.com'
+ML_API_URL = 'http://localhost:8000/ml'
 
 logger = logging.getLogger(__name__)
 
