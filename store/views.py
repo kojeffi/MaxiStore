@@ -442,6 +442,7 @@ from django.shortcuts import render
 from .models import Product
 
 
+# Machine learning API
 ML_API_URL = 'http://localhost:8000/ml'
 
 logger = logging.getLogger(__name__)
