@@ -97,7 +97,7 @@
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100 animate__animated animate__fadeInLeft" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">Dashboards</h6>
+                    <h6 class="m-0">Dashboard</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1000;">
@@ -152,9 +152,9 @@
                 <div class="bg-light p-3 rounded shadow-sm animate__animated animate__fadeInLeft">
                     <h4 class="font-weight-bold">Dashboard</h4>
                     <ul class="list-unstyled">
-                        <li><a href="" class="nav-link text-dark">Home</a></li>
-                        <li><a href="" class="nav-link text-dark">Shop</a></li>
-                        <li><a href="" class="nav-link text-dark">Shop Details</a></li>
+                        <li><a href="{% url 'home-url' %}" class="nav-link text-dark">Home</a></li>
+                        <li><a href="{% url 'product_list' %}" class="nav-link text-dark">Shop</a></li>
+                        <li><a href="{% url 'cart_detail' %}" class="nav-link text-dark">Shop Details</a></li>
                         <li><a href="" class="nav-link text-dark">Shopping Cart</a></li>
                         <li><a href="" class="nav-link text-dark">Checkout</a></li>
                         <li><a href="" class="nav-link text-dark">Wishlist</a></li>
@@ -179,8 +179,8 @@
                                 <p class="text-light font-weight-bold mb-3 animated fadeInDown delay-1s">{{ product.name }}</p>
                                 <p class="text-light lead animated fadeIn delay-1s">
                                     <span class="price text-primary">Price: ${{ product.price }}</span><br>
-                                    <span class="discount text-primary">Discount: {{ product.discount }}%</span><br>
-                                    <span class="final-price text-white">Final Price: ${{ product.final_price|floatformat:2 }}</span>
+                                    <span class="discount text-danger">Discount: {{ product.discount }}%</span><br>
+                                    <span class="final-price text-success">Final Price: ${{ product.final_price|floatformat:2 }}</span>
                                 </p>
                                 <div class="mt-4 d-flex flex-column align-items-center flex-md-row">
                                     <a href="{% url 'product_detail' product.id %}" class="btn btn-primary rounded animated fadeInUp delay-2s mb-2 mb-md-0 mr-md-3">View Detail</a>
@@ -359,36 +359,47 @@
                         <a class="text-dark mb-2" href="{% url 'faq_list' %}"><i class="fa fa-angle-right mr-2"></i>Faqs</a>
                         <a class="text-dark mb-2" href="{% url 'blog_list' %}">
                             <i class="fa fa-angle-right mr-2"></i>blog</a>
-                        <a class="text-dark mb-2" href="{% url 'policy_page_detail' policy_page_id=1 %}">
-                            <i class="fa fa-angle-right mr-2"></i>policy page</a>
+                        <!-- <a class="text-dark mb-2" href="{% url 'policy_page_detail' policy_page_id=1 %}">
+                            <i class="fa fa-angle-right mr-2"></i>policy page</a> -->
                         <a class="text-dark" href="{% url 'contact' %}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Legal</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Terms and Conditions</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Privacy and Policy</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Acceptable Use Notice</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Accessibility</a>
+                        <a class="text-dark mb-2" href="{% url 'terms' %}"><i class="fa fa-angle-right mr-2"></i>Terms and Conditions</a>
+                        <a class="text-dark mb-2" href="{% url 'privacy' %}"><i class="fa fa-angle-right mr-2"></i>Privacy and Policy</a>
+                        <a class="text-dark mb-2" href="{% url 'cookies' %}"><i class="fa fa-angle-right mr-2"></i>Cookies</a>
+                        <a class="text-dark mb-2" href="{% url 'accessibility' %}"><i class="fa fa-angle-right mr-2"></i>Accessibility</a>
 
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
-                    <form action="">
-                        <div class="form-group">
-                            <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                
+                    {% if success_message %}
+                        <div class="alert alert-success" role="alert">
+                            {{ success_message }}
                         </div>
+                    {% endif %}
+                
+                    {% if error_message %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error_message }}
+                        </div>
+                    {% endif %}
+                
+                    <form class="subscription-form" method="post" action="{% url 'subscribe' %}">
+                        {% csrf_token %}
                         <div class="form-group">
-                            <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
-                                required="required" />
+                            <input type="email" name="email" class="form-control border-0 py-4" placeholder="Your Email" required="required" />
                         </div>
                         <div>
                             <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
                         </div>
                     </form>
                 </div>
+                
             </div>
         </div>
     </div>

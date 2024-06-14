@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    blog_detail,blog_list,create_blog_post,index, search, order_detail, leave_review, wishlist_detail,
+    paypal_cancel,paypal_return,order_success,blog_detail,blog_list,create_blog_post,index, search, order_detail, leave_review, wishlist_detail,
     add_to_wishlist, remove_from_wishlist, cart_detail, add_to_cart,
     update_cart_item,blog_post_detail,faq_list,policy_page_detail, product_list, product_detail, add_product, checkout, order_history, remove_cart_item  # Import the new view
 )
@@ -32,5 +32,9 @@ urlpatterns = [
 
     path('create_blog_post/', create_blog_post, name='create_blog_post'),
     path('blog/<int:blog_post_id>/', blog_detail, name='blog_detail'),
+
+    path('order-success/<int:order_id>/', order_success, name='order_success'),
+    path('paypal-return/', paypal_return, name='paypal_return'),
+    path('paypal-cancel/', paypal_cancel, name='paypal_cancel'),
 ]
 urlpatterns += ml_urls

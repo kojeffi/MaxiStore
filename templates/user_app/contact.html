@@ -2,13 +2,12 @@
 {% load static %}
 
 {% block content %}
-<br>
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
-        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Contact Us</h1>
-            <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+        <div class="d-flex flex-column align-items-center justify-content-center py-5" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3 text-white">Contact Us</h1>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a href="{% url 'home-url' %}" class="text-white">Home</a></p>
                 <p class="m-0 px-2">-</p>
                 <p class="m-0">Contact</p>
             </div>
@@ -16,76 +15,82 @@
     </div>
     <!-- Page Header End -->
 
+    <!-- Contact Section -->
+    <section id="contact" class="contact bg-white py-5">
+        <div class="container" data-aos="fade-up">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <!-- Info Items -->
+                    <div class="info-item d-flex">
+                        <i class="bi bi-geo-alt flex-shrink-0"></i>
+                        <div class="ms-3">
+                            <h4>Location:</h4>
+                            <p>4 Durham Workspace<br>
+                                PityMe, Durham DH1 5GG, UK</p>
+                        </div>
+                    </div>
+                    <div class="info-item d-flex mt-4">
+                        <i class="bi bi-envelope flex-shrink-0"></i>
+                        <div class="ms-3">
+                            <h4>Email:</h4>
+                            <p><a href="mailto:josh@meliandialogue.com" class="text-dark">josh@meliandialogue.com</a><br>
+                                <a href="mailto:jim.coke@meliandialogue.com" class="text-dark">jim.coke@meliandialogue.com</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item d-flex mt-4">
+                        <i class="bi bi-phone flex-shrink-0"></i>
+                        <div class="ms-3">
+                            <h4>Call:</h4>
+                            <p>+44 7508 516836</p>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Contact Start -->
-    <div class="container-fluid pt-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Contact For Any Queries</span></h2>
-        </div>
-        <div class="row px-xl-5">
-            <div class="col-lg-7 mb-5">
-                <div class="contact-form">
-                    <div id="success"></div>
-                    <form  action="{% url 'contact' %}" method="post">
+                <div class="col-lg-8">
+                    <!-- Contact Form -->
+                    <h2 class="text-center mb-4">Drop Your Message Here</h2>
+                    <form action="{% url 'contact' %}" method="post" role="form" class="php-email-form">
                         {% csrf_token %}
-                        <div class="control-group">
-                            <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                required="required" data-validation-required-message="Please enter your name" />
-                            <p class="help-block text-danger"></p>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                            </div>
                         </div>
-                        <div class="control-group">
-                            <input type="email" class="form-control" id="email" placeholder="Your Email"
-                                required="required" data-validation-required-message="Please enter your email" />
-                            <p class="help-block text-danger"></p>
+                        <div class="form-group mt-3">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
                         </div>
-                        <div class="control-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Subject"
-                                required="required" data-validation-required-message="Please enter a subject" />
-                            <p class="help-block text-danger"></p>
+                        <div class="form-group mt-3">
+                            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
                         </div>
-                        <div class="control-group">
-                            <textarea class="form-control" rows="6" id="message" placeholder="Message"
-                                required="required"
-                                data-validation-required-message="Please enter your message"></textarea>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary py-2 px-4" type="submit">Send
-                                Message</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Send Message</button>
                         </div>
                     </form>
+                    <!-- Success Message (Hidden by default) -->
+                    <div class="alert alert-success mt-3 d-none" id="success-message" role="alert">
+                        Your message has been sent. Thank you!
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3 p-b-50">
-                <h4 class="stext-301 cl0 p-b-30 text-dark">
-                    GET IN TOUCH
-                </h4>
-
-                <p class="stext-107 cl7 size-201">
-                    <p>Your one-stop shop for all your needs</p>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>4 Durham WorkspacePityMe, Durham DH1 5JZ, UK</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>hello@meliandialogue.com</p>
-                    <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+447508516836</p>
-                    <br>
-                </p>
-
-                <div class="p-t-27">
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                        <i class="fa fa-instagram"></i>
-                    </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                        <i class="fa fa-pinterest-p"></i>
-                    </a>
-                </div>
-            </div>
-
         </div>
-    </div>
-    <!-- Contact End -->
+    </section>
+    <!-- End Contact Section -->
 
-    {% endblock %}
+    <!-- Script for form submission handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.php-email-form');
+            const successMessage = document.getElementById('success-message');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Display success message and hide form
+                successMessage.classList.remove('d-none');
+                form.reset(); // Optional: Reset form fields after submission
+            });
+        });
+    </script>
+{% endblock %}

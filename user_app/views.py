@@ -30,7 +30,7 @@ def dashboard(request):
     user = request.user
     username = user.username
     email = user.email
-    return render(request, 'store/product_list.html', {'username': username, 'email': email})
+    return render(request, 'store/index.html', {'username': username, 'email': email})
 
 @login_required
 def change_password(request):
@@ -50,7 +50,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('dashboard-url')
+            return redirect('product_list')
         else:
             return render(request, 'user_app/login.html', {'error_message': 'Invalid username or password.'})
     return render(request, 'user_app/login.html')
@@ -114,6 +114,11 @@ def generate_bot_response(user_message):
         return "Sorry, I didn't understand that. Can you please rephrase your question?"
 
 
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.core.mail import send_mail
+from .models import Subscription
 
 def subscribe(request):
     if request.method == 'POST':
@@ -133,11 +138,37 @@ def subscribe(request):
             recipient_list = [email]
             send_mail(subject, message, sender_email, recipient_list)
 
-            # Render the subscription form with a success message
-            return render(request, 'store/index.html', {'success_message': 'Thank you for subscribing!'})
+            # Redirect to the same page with a success message
+            return HttpResponseRedirect(reverse('subscribe') + '?success_message=Thank+you+for+subscribing!')
         else:
-            # Email already exists, render the form with an error message
-            return render(request, 'store/index.html', {'error_message': 'Email already subscribed!'})
+            # Redirect to the same page with an error message
+            return HttpResponseRedirect(reverse('subscribe') + '?error_message=Email+already+subscribed!')
     else:
         # If the request method is GET, render the subscription form
-        return render(request, 'store/index.html')
+        success_message = request.GET.get('success_message', '')
+        error_message = request.GET.get('error_message', '')
+        return render(request, 'store/index.html', {
+            'success_message': success_message,
+            'error_message': error_message,
+        })
+
+
+@login_required
+def terms(request):
+    return render(request, 'store/terms.html')
+
+
+@login_required
+def privacy(request):
+    return render(request, 'store/privacy.html')
+
+
+@login_required
+def cookies(request):
+    return render(request, 'store/cookies.html')
+
+
+@login_required
+def accessibility(request):
+    return render(request, 'store/accessibility.html')
+

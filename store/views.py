@@ -1,9 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.http import JsonResponse
 from .models import Product, Cart, CartItem, Order, OrderItem, Review, Wishlist
 from .forms import ReviewForm
-from django.urls import reverse
+from .payments import create_stripe_payment_intent, create_paypal_payment, execute_paypal_payment
 
+# Views for product display and cart management
 def index(request):
     products = Product.objects.all()[:4]
     return render(request, 'store/index.html', {'products': products})
@@ -37,17 +41,37 @@ def remove_from_wishlist(request, product_id):
     wishlist.product.remove(product)
     return redirect('wishlist_detail')
 
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Cart, Order
+
+
 @login_required
 def cart_detail(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = cart.cartitem_set.all()
-    total_price = sum(item.total_price for item in cart_items)
+    subtotal = sum(item.total_price for item in cart_items)
+    shipping = 100  # Example shipping cost
+    total_price = subtotal + shipping
     order, created = Order.objects.get_or_create(user=request.user, status='pending', defaults={'total_price': total_price})
     if not created:
         order.total_price = total_price
         order.save()
-    
-    return render(request, 'store/cart_detail.html', {'cart': cart, 'cart_items': cart_items, 'total_price': total_price, 'order': order})
+
+    if request.method == 'POST':
+        # Redirect to the checkout view with the calculated prices
+        checkout_url = reverse('checkout', args=[order.id])
+        return redirect(f'{checkout_url}?subtotal={subtotal}&shipping={shipping}&total={total_price}')
+
+    return render(request, 'store/cart_detail.html', {
+        'cart': cart,
+        'cart_items': cart_items,
+        'subtotal': subtotal,
+        'shipping': shipping,
+        'total_price': total_price,
+        'order': order
+    })
+
 
 @login_required
 def add_to_cart(request, product_id):
@@ -74,42 +98,185 @@ def remove_cart_item(request, cart_item_id):
     cart_item.delete()
     return JsonResponse({'success': True})
 
+# Views for handling checkout and payments
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from .models import Order, OrderItem
+from .payments import create_stripe_payment_intent, create_paypal_payment
+
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from .models import Order, OrderItem
+from .payments import create_stripe_payment_intent, create_paypal_payment
+
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from .models import Order, OrderItem
+from .payments import create_stripe_payment_intent, create_paypal_payment
+
 @login_required
 def checkout(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     order_items = OrderItem.objects.filter(order=order)
 
-    for item in order_items:
-        item.total_price = item.product.final_price * item.quantity
+    # Get the values from the query parameters
+    subtotal = float(request.GET.get('subtotal', 0))
+    shipping = float(request.GET.get('shipping', 100))
+    total_price = float(request.GET.get('total', subtotal + shipping))
 
-    subtotal = sum(item.total_price for item in order_items)
-    shipping = 100  # example shipping cost
-    total_price = subtotal + shipping
-
+    # Ensure the order's total price matches
     order.total_price = total_price
     order.save()
 
     if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        mobile = request.POST.get('mobile')
-        address1 = request.POST.get('address1')
-        address2 = request.POST.get('address2', '')
-        country = request.POST.get('country')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        zip_code = request.POST.get('zip')
-
-        return redirect('order_history')
+        payment_method = request.POST.get('payment')
+        if payment_method == 'stripe':
+            intent = create_stripe_payment_intent(order)
+            return render(request, 'store/stripe_checkout.html', {
+                'order': order,
+                'order_items': order_items,
+                'subtotal': subtotal,
+                'shipping': shipping,
+                'total_price': total_price,
+                'client_secret': intent.client_secret,
+                'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+            })
+        elif payment_method == 'paypal':
+            return_url = request.build_absolute_uri(reverse('paypal_return'))
+            cancel_url = request.build_absolute_uri(reverse('paypal_cancel'))
+            approval_url = create_paypal_payment(order, return_url, cancel_url)
+            if approval_url:
+                return redirect(approval_url)
+            else:
+                return redirect('checkout', order_id=order.id)
 
     return render(request, 'store/checkout.html', {
         'order': order,
         'order_items': order_items,
         'subtotal': subtotal,
         'shipping': shipping,
-        'total_price': total_price
+        'total_price': total_price,
     })
+
+
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.http import JsonResponse
+from .models import Product, Cart, CartItem, Order, OrderItem, Review, Wishlist
+from .forms import ReviewForm
+from .payments import create_stripe_payment_intent, create_paypal_payment, execute_paypal_payment
+
+
+
+@login_required
+def checkout(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order_items = OrderItem.objects.filter(order=order)
+
+    # Get the values from the query parameters
+    subtotal = float(request.GET.get('subtotal', 0))
+    shipping = float(request.GET.get('shipping', 100))
+    total_price = float(request.GET.get('total', subtotal + shipping))
+
+    # Ensure the order's total price matches
+    order.total_price = total_price
+    order.save()
+
+    if request.method == 'POST':
+        payment_method = request.POST.get('payment')
+        if payment_method == 'stripe':
+            intent = create_stripe_payment_intent(order)
+            return render(request, 'store/stripe_checkout.html', {
+                'order': order,
+                'order_items': order_items,
+                'subtotal': subtotal,
+                'shipping': shipping,
+                'total_price': total_price,
+                'client_secret': intent.client_secret,
+                'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+            })
+        elif payment_method == 'paypal':
+            return_url = request.build_absolute_uri(reverse('paypal_return'))
+            cancel_url = request.build_absolute_uri(reverse('paypal_cancel'))
+            approval_url = create_paypal_payment(order, return_url, cancel_url)
+            if approval_url:
+                return redirect(approval_url)
+            else:
+                return redirect('checkout', order_id=order.id)
+
+    return render(request, 'store/checkout.html', {
+        'order': order,
+        'order_items': order_items,
+        'subtotal': subtotal,
+        'shipping': shipping,
+        'total_price': total_price,
+    })
+
+
+
+@login_required
+def paypal_return(request):
+    payment_id = request.GET.get('paymentId')
+    payer_id = request.GET.get('PayerID')
+
+    if payment_id and payer_id:
+        success = execute_paypal_payment(payment_id, payer_id)
+        if success:
+            order = Order.objects.get(payment_id=payment_id)
+            order.status = 'completed'
+            order.save()
+            return redirect('order_success', order_id=order.id)
+        else:
+            return redirect('checkout', order_id=order.id)
+    else:
+        return redirect('checkout', order_id=request.session.get('order_id'))
+
+@login_required
+def paypal_cancel(request):
+    order_id = request.session.get('order_id')
+    return render(request, 'store/paypal_cancel.html', {'order_id': order_id})
+
+@login_required
+def order_success(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'store/order_success.html', {'order': order})
+
+
+
+@login_required
+def paypal_return(request):
+    payment_id = request.GET.get('paymentId')
+    payer_id = request.GET.get('PayerID')
+
+    if payment_id and payer_id:
+        success = execute_paypal_payment(payment_id, payer_id)
+        if success:
+            order = Order.objects.get(payment_id=payment_id)
+            order.status = 'completed'
+            order.save()
+            return redirect('order_success', order_id=order.id)
+        else:
+            return redirect('checkout', order_id=order.id)
+    else:
+        return redirect('checkout', order_id=request.session.get('order_id'))
+
+@login_required
+def paypal_cancel(request):
+    order_id = request.session.get('order_id')
+    return render(request, 'store/paypal_cancel.html', {'order_id': order_id})
+
+@login_required
+def order_success(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'store/order_success.html', {'order': order})
 
 @login_required
 def order_history(request):
@@ -251,6 +418,21 @@ def blog_detail(request, blog_post_id):
     return render(request, 'store/blog_detail.html', {'blog_post': blog_post})
 
 
+# views.py
+
+from django.shortcuts import render, get_object_or_404
+from .models import Order
+
+@login_required
+def order_success(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'store/order_success.html', {'order': order})
+
+
+
+
+
+
 # machine learning implementation
 # ecommerce/views.py
 import requests
@@ -258,6 +440,9 @@ import logging
 from django.conf import settings
 from django.shortcuts import render
 from .models import Product
+
+
+ML_API_URL = 'https://maxistore.onrender.com'
 
 logger = logging.getLogger(__name__)
 
@@ -473,3 +658,4 @@ def product_list(request):
     }
     
     return render(request, 'store/product_list.html', context)
+

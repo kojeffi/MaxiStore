@@ -1,194 +1,150 @@
 {% extends "store/base.html" %}
-{% block content %}
-    <!-- Page Header Start -->
-    <div class="container-fluid bg-secondary mb-5">
-        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
-            <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
-                <p class="m-0 px-2">-</p>
-                <p class="m-0">Checkout</p>
-            </div>
-        </div>
-    </div>
-    <!-- Page Header End -->
 
-    <!-- Checkout Start -->
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5">
-            <div class="col-lg-8">
-                <div class="mb-4">
-                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
-                    <form method="POST" action="{% url 'checkout' order.id %}">
-                        {% csrf_token %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-8">
+            <div class="card shadow-sm animated fadeInDown">
+                <div class="card-body">
+                    <h2 class="mb-4">Complete Your Payment</h2>
+                    
+                    <div class="mb-4 border-bottom pb-3">
+                        <h5 class="mb-3">Order Summary</h5>
+                        <div class="row mb-2">
+                            <div class="col-sm-6">Subtotal:</div>
+                            <div class="col-sm-6 text-sm-end">${{ subtotal|floatformat:2 }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-6">Shipping:</div>
+                            <div class="col-sm-6 text-sm-end">${{ shipping|floatformat:2 }}</div>
+                        </div>
                         <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>First Name</label>
-                                <input class="form-control" type="text" name="first_name" placeholder="John" required>
+                            <div class="col-sm-6"><strong>Total Price:</strong></div>
+                            <div class="col-sm-6 text-sm-end"><strong>${{ total_price|floatformat:2 }}</strong></div>
+                        </div>
+                    </div>
+
+                    <form method="post" class="animated fadeInUp">
+                        {% csrf_token %}
+
+                        <h5 class="mb-4">Billing Address</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="id_first_name" name="first_name" required>
                             </div>
-                            <div class="col-md-6 form-group">
-                                <label>Last Name</label>
-                                <input class="form-control" type="text" name="last_name" placeholder="Doe" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>E-mail</label>
-                                <input class="form-control" type="email" name="email" placeholder="example@email.com" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Mobile No</label>
-                                <input class="form-control" type="text" name="mobile" placeholder="+123 456 789" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Address Line 1</label>
-                                <input class="form-control" type="text" name="address1" placeholder="123 Street" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Address Line 2</label>
-                                <input class="form-control" type="text" name="address2" placeholder="123 Street">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Country</label>
-                                <select class="custom-select" name="country" required>
-                                    <option selected>United States</option>
-                                    <option>Afghanistan</option>
-                                    <option>Albania</option>
-                                    <option>Algeria</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>City</label>
-                                <input class="form-control" type="text" name="city" placeholder="New York" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>State</label>
-                                <input class="form-control" type="text" name="state" placeholder="New York" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>ZIP Code</label>
-                                <input class="form-control" type="text" name="zip" placeholder="123" required>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="newaccount">
-                                    <label class="custom-control-label" for="newaccount">Create an account</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="shipto">
-                                    <label class="custom-control-label" for="shipto" data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                                </div>
+                            <div class="col-md-6">
+                                <label for="id_last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="id_last_name" name="last_name" required>
                             </div>
                         </div>
-                        <div class="collapse mb-4" id="shipping-address">
-                            <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label>First Name</label>
-                                    <input class="form-control" type="text" name="shipping_first_name" placeholder="John">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Last Name</label>
-                                    <input class="form-control" type="text" name="shipping_last_name" placeholder="Doe">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>E-mail</label>
-                                    <input class="form-control" type="text" name="shipping_email" placeholder="example@email.com">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Mobile No</label>
-                                    <input class="form-control" type="text" name="shipping_mobile" placeholder="+123 456 789">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Address Line 1</label>
-                                    <input class="form-control" type="text" name="shipping_address1" placeholder="123 Street">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Address Line 2</label>
-                                    <input class="form-control" type="text" name="shipping_address2" placeholder="123 Street">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Country</label>
-                                    <select class="custom-select" name="shipping_country">
-                                        <option selected>United States</option>
-                                        <option>Afghanistan</option>
-                                        <option>Albania</option>
-                                        <option>Algeria</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>City</label>
-                                    <input class="form-control" type="text" name="shipping_city" placeholder="New York">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>State</label>
-                                    <input class="form-control" type="text" name="shipping_state" placeholder="New York">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>ZIP Code</label>
-                                    <input class="form-control" type="text" name="shipping_zip" placeholder="123">
-                                </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="id_email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="id_address" name="address" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="id_city" name="city" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_state" class="form-label">State</label>
+                                <input type="text" class="form-control" id="id_state" name="state" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="id_zip" class="form-label">ZIP Code</label>
+                                <input type="text" class="form-control" id="id_zip" name="zip_code" required>
                             </div>
                         </div>
-                        <div class="card border-secondary mb-5">
-                            <div class="card-header bg-secondary border-0">
-                                <h4 class="font-weight-semi-bold m-0">Order Total</h4>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="font-weight-medium mb-3">Products</h5>
-                                {% for item in order_items %}
-                                <div class="d-flex justify-content-between">
-                                    <p>{{ item.product.name }} x {{ item.quantity }}</p>
-                                    <p>${{ item.total_price|floatformat:2 }}</p>
-                                </div>
-                                {% endfor %}
-                                
-                                <hr class="mt-0">
-                                <div class="d-flex justify-content-between mb-3 pt-1">
-                                    <h6 class="font-weight-medium">Subtotal</h6>
-                                    <h6 class="font-weight-medium">${{ subtotal|floatformat:2 }}</h6>
-                                </div>
-                                <div class="d-flex justify-content-between mb-3 pt-1">
-                                    <h6 class="font-weight-medium">Shipping</h6>
-                                    <h6 class="font-weight-medium">${{ shipping|floatformat:2 }}</h6>
-                                </div>
-                                <div class="d-flex justify-content-between mb-3 pt-1">
-                                    <h6 class="font-weight-medium">Total</h6>
-                                    <h6 class="font-weight-medium">${{ total_price|floatformat:2 }}</h6>
-                                </div>
-                                
-                        <div class="card border-secondary mb-5">
-                            <div class="card-header bg-secondary border-0">
-                                <h4 class="font-weight-semi-bold m-0">Payment</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="paypal" value="paypal" required>
-                                        <label class="custom-control-label" for="paypal">Paypal</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="directcheck" value="direct_check">
-                                        <label class="custom-control-label" for="directcheck">Direct Check</label>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="banktransfer" value="bank_transfer">
-                                        <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer border-secondary bg-transparent">
-                                <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit">Place Order</button>
-                            </div>
+
+                        <h5 class="mb-4">Payment Method</h5>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="payment" id="stripe" value="stripe" required>
+                            <label class="form-check-label" for="stripe">Pay with Stripe</label>
                         </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="payment" id="paypal" value="paypal" required>
+                            <label class="form-check-label" for="paypal">Pay with PayPal</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Proceed to Payment</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Checkout End -->
+</div>
+{% endblock %}
+
+{% block extracss %}
+<style>
+.animated {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDown {
+    animation-name: fadeInDown;
+}
+
+.fadeInUp {
+    animation-name: fadeInUp;
+}
+
+/* Additional styles for the modern look */
+.card-body {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.5);
+}
+
+.form-check-input:checked {
+    background-color: #4CAF50;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.5);
+}
+</style>
 {% endblock %}

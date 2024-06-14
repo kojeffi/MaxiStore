@@ -96,13 +96,8 @@
     }
 </style>
 
-<nav>
-    <li><a href="{% url 'blog_list' %}">Blog</a></li>
-    <li><a href="{% url 'create_blog_post' %}">Create Blog Post</a></li>
-</nav>
-
 <div class="container py-5">
-    <h2>Create a New Blog Post</h2>
+    <h2><a href="{% url 'create_blog_post' %}">Create Blog Post</a></h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -111,7 +106,6 @@
 </div>
 
 <div class="container py-5">
-    <h2>Blog Posts</h2>
     {% for blog_post in blog_posts %}
     <div class="blog-post">
         <h3>{{ blog_post.title }}</h3>
