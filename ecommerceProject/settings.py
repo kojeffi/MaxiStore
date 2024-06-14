@@ -233,13 +233,26 @@ LOGOUT_REDIRECT_URL = 'logout-url'
 # Stripe settings
 # STRIPE_PUBLIC_KEY = 'your_stripe_public_key'
 # STRIPE_SECRET_KEY = 'your_stripe_secret_key'
-STRIPE_SECRET_KEY = 'sk_test_51PLPxiFYYX5YHgfBLfVEwf4vsM0AOCXRd0oyAncoYe2UeFX7q7tKdBhEi5NmAKXhqvIzMuCGqbVxzLX6AMMnvMNE00OpQFMXKZ'
-STRIPE_PUBLIC_KEY  = 'pk_test_51PLPxiFYYX5YHgfB8BnLGDZijrDmvm5shkv1aoiU8bvta8HEFgezuMexHoRmvlYnPN1Ly35o6Mrr3wUUkQemqHBq00rrFGMFwH'
+# STRIPE_SECRET_KEY = 'sk_test_51PLPxiFYYX5YHgfBLfVEwf4vsM0AOCXRd0oyAncoYe2UeFX7q7tKdBhEi5NmAKXhqvIzMuCGqbVxzLX6AMMnvMNE00OpQFMXKZ'
+# STRIPE_PUBLIC_KEY  = 'pk_test_51PLPxiFYYX5YHgfB8BnLGDZijrDmvm5shkv1aoiU8bvta8HEFgezuMexHoRmvlYnPN1Ly35o6Mrr3wUUkQemqHBq00rrFGMFwH'
+
+# # PayPal settings
+# PAYPAL_CLIENT_ID = 'ARZlIyQyoUCPoxKAzHIDsKTARpcHOvTWERandV-4YXc6A9fkIshnmBEicE5q6sjNFeBnKbesEMbl6QlK'
+# PAYPAL_CLIENT_SECRET = 'EC6HkA1jkJoNOY7_3qVcNi8hXSRuq9mY3Q_a_eJqLDy-2dP34ImOhkijjG3wDjn79xk_PQR7XoKqgoTO'
+# PAYPAL_MODE = 'live'  # Or 'live' for production
+
+
+
+# Stripe settings
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
 # PayPal settings
-PAYPAL_CLIENT_ID = 'ARZlIyQyoUCPoxKAzHIDsKTARpcHOvTWERandV-4YXc6A9fkIshnmBEicE5q6sjNFeBnKbesEMbl6QlK'
-PAYPAL_CLIENT_SECRET = 'EC6HkA1jkJoNOY7_3qVcNi8hXSRuq9mY3Q_a_eJqLDy-2dP34ImOhkijjG3wDjn79xk_PQR7XoKqgoTO'
-PAYPAL_MODE = 'live'  # Or 'live' for production
+PAYPAL_CLIENT_ID = os.getenv('PAYPAL_CLIENT_ID')
+PAYPAL_CLIENT_SECRET = os.getenv('PAYPAL_CLIENT_SECRET')
+PAYPAL_MODE = os.getenv('PAYPAL_MODE', 'live')  # Default to 'live' if not set
+
+
 
 
 
