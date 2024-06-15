@@ -49,10 +49,11 @@ INSTALLED_APPS = [
 ]
 
 
+# Using environment variables for Cloudinary credentials
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dnqsiqqu9',
-    'API_KEY': '155569521244935',
-    'API_SECRET': 'gr59xu00MEcd8EJJvZWP4TZGtoU',
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dnqsiqqu9'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '155569521244935'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'gr59xu00MEcd8EJJvZWP4TZGtoU'),  # replace with actual secret
 }
 
 
