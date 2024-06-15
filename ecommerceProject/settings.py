@@ -44,7 +44,18 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ml',
     'rest_framework',
+	'cloudinary',
+    'cloudinary_storage',
 ]
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dnqsiqqu9',
+    'API_KEY': '155569521244935',
+    'API_SECRET': 'gr59xu00MEcd8EJJvZWP4TZGtoU',
+}
+
+
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -251,10 +262,3 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 PAYPAL_CLIENT_ID = os.getenv('PAYPAL_CLIENT_ID')
 PAYPAL_CLIENT_SECRET = os.getenv('PAYPAL_CLIENT_SECRET')
 PAYPAL_MODE = os.getenv('PAYPAL_MODE', 'live')  # Default to 'live' if not set
-
-
-
-
-
-
-
