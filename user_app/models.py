@@ -7,10 +7,13 @@ import os
 import logging
 
 logger = logging.getLogger(__name__)
+from django.contrib.auth.models import User
+from django.db import models
+from cloudinary.models import CloudinaryField
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
+    profile_photo = CloudinaryField('profile_photo', blank=True, null=True)
     about = models.TextField(blank=True)
 
     def __str__(self):
@@ -20,16 +23,13 @@ class Profile(models.Model):
         super(Profile, self).save(*args, **kwargs)
         if self.profile_photo:
             try:
-                if os.path.exists(self.profile_photo.path):
-                    img = Image.open(self.profile_photo.path)
-                    if img.height > 300 or img.width > 300:
-                        output_size = (300, 300)
-                        img.thumbnail(output_size)
-                        img.save(self.profile_photo.path)
-                else:
-                    logger.warning(f"Profile photo file not found: {self.profile_photo.path}. Using default image.")
+                # Optionally, you can resize the image after upload
+                # cloudinary.uploader.upload(self.profile_photo.path, width=300, height=300, crop='limit')
+                pass
             except Exception as e:
                 logger.error(f"Error processing profile photo {self.profile_photo.path}: {e}")
+
+
 
 @receiver(post_save, sender=User)
 def create_or_update_profile(sender, instance, created, **kwargs):
