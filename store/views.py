@@ -19,7 +19,15 @@ def product_list(request):
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     reviews = Review.objects.filter(product=product)
-    return render(request, 'store/product_detail.html', {'product': product, 'reviews': reviews})
+    
+    # Fetch similar products
+    similar_products = Product.objects.filter(category=product.category).exclude(id=product_id)[:4]
+    
+    return render(request, 'store/product_detail.html', {
+        'product': product,
+        'reviews': reviews,
+        'similar_products': similar_products
+    })
 
 @login_required
 def add_to_wishlist(request, product_id):

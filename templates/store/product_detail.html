@@ -93,7 +93,7 @@
     <div class="row">
         {% for similar_product in similar_products %}
         <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
-            <div class="card product-item border-0 mb-4 shadow-sm">
+            <div class="card product-item border-0">
                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                     {% if similar_product.image %}
                     <img class="img-fluid w-100" src="{{ similar_product.image.url }}" alt="{{ similar_product.name }}">
@@ -104,13 +104,15 @@
                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                     <h6 class="text-truncate mb-3">{{ similar_product.name }}</h6>
                     <div class="d-flex justify-content-center">
-                        <h6 class="mr-2">Price: <span class="text-muted" style="text-decoration: line-through;">${{ similar_product.price }}</span></h6>
-                        <h6 class="mr-2">Discount: <span class="text-danger">{{ similar_product.discount }}%</span></h6>
-                        <h6>Final Price: <span class="text-success">${{ similar_product.final_price }}</span></h6>
+                        <h6 class="mr-2">Price: <span class="price">${{ similar_product.price }}</span></h6>
+                        <h6 class="mr-2">Discount: <span class="discount">{{ similar_product.discount }}%</span></h6>
+                        <h6>Final Price: <span class="final-price">${{ similar_product.final_price }}</span></h6>
                     </div>
                 </div>
                 <div class="card-footer bg-light border">
-                    <a href="{% url 'product_detail' similar_product.id %}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                    <a href="{% url 'product_detail' similar_product.id %}" class="btn btn-sm text-dark p-0">
+                        <i class="fas fa-eye text-primary mr-1"></i>View Detail
+                    </a>
                 </div>
             </div>
         </div>
@@ -118,6 +120,7 @@
     </div>
 </div>
 <!-- Similar Products Section End -->
+
 
 <style>
     .container img {
