@@ -6,6 +6,7 @@ from django.urls import path, include
 from ml.urls import urlpatterns as ml_urls
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('admin/', admin.site.urls),
     path('user_app/', include('user_app.urls')),
     path('', include('store.urls')),
