@@ -65,10 +65,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Machine learning API
-# ML_API_URL = os.getenv('ML_API_URL', 'http://localhost:8000/ml/')
+ML_API_URL = os.getenv('ML_API_URL', 'http://localhost:8000/ml/')
 
 
-ML_API_URL = os.getenv('ML_API_URL', 'https://maxistore.onrender.com/ml/')
+# ML_API_URL = os.getenv('ML_API_URL', 'https://maxistore.onrender.com/ml/')
+
 
 
 # Logging Configuration
