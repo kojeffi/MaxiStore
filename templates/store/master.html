@@ -195,7 +195,7 @@
                 <div class="carousel-inner">
                     {% for product in products %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}" style="max-height: 70vh; object-fit: contain;">
+                        <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}" style="width: 100%; height: 70vh; object-fit: cover;">
                         <div class="carousel-caption d-flex flex-column justify-content-center align-items-center animated fadeInUp delay-1s" style="width: 100%; height: 100%;">
                             <p class="text-light font-weight-bold mb-3 animated fadeInDown delay-1s">{{ product.name }}</p>
                             <p class="text-light lead animated fadeIn delay-1s">
@@ -276,8 +276,9 @@
 
 .carousel-item img {
     animation: zoomIn 1.5s ease-in-out;
-    max-height: 70vh;
-    object-fit: contain;
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
 }
 
 @keyframes zoomIn {
