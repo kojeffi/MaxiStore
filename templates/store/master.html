@@ -27,17 +27,44 @@
 
     <!-- Animate.css Stylesheet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        .fixed-topbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030;
+        }
+        .fixed-navbar {
+            position: fixed;
+            top: 70px; /* Height of the top bar */
+            width: 100%;
+            z-index: 1020;
+        }
+        body {
+            padding-top: 130px; /* Height of the top bar + navbar */
+        }
+        @media (max-width: 991.98px) {
+            .fixed-navbar {
+                top: 130px; /* Height of the top bar */
+            }
+            body {
+                padding-top: 200px; /* Adjust padding for mobile view */
+            }
+        }
+    </style>
 </head>
 
 <body>
+
+    
     <!-- Topbar Start -->
-    <div class="container-fluid bg-white shadow-sm animated fadeInDown">
+    <div class="container-fluid bg-white shadow-sm animated fadeInDown fixed-topbar">
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
                     <h2 class="m-0 display-5 font-weight-semi-bold">
-                        <span class="text-primary font-weight-bold border px-3 mr-1 
-                        animate__animated animate__bounceInLeft">
+                        <span class="text-primary font-weight-bold border px-3 mr-1 animate__animated animate__bounceInLeft">
                          M</span>Mount Guard
                     </h2>
                 </a>
@@ -93,7 +120,7 @@
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
-    <div class="container-fluid">
+    <div class="container-fluid fixed-navbar">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100 animate__animated animate__fadeInLeft" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
@@ -143,6 +170,7 @@
         </div>
     </div>
     <!-- Navbar End -->
+
 
     <!-- Carousel and Dashboard Start -->
     <div class="container-fluid mt-4">
