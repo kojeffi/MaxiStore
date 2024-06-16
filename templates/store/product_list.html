@@ -67,6 +67,34 @@
                 </div>
                 {% endfor %}
                 <!-- Product Loop End -->
+
+
+
+              <div class="row">
+
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    
+       <!-- Shop Product End -->
+            <h2>Recommended Products</h2>
+            <ul>
+                {% if recommended_products %}
+                    {% for product in recommended_products %}
+                    <li><img class="img2" src="{{ product.image.url }}" alt="{{ product.name }}"> {{ product.name }} - ${{ product.price }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>No recommendations available</li>
+                {% endif %}
+            </ul>
+
+                </div>
+                <div class="col-md-3"></div>
+
+              </div>
+
+
+
+
                 <div class="col-12 pb-1">
                     <nav aria-label="Page navigation">
                       <ul class="pagination justify-content-center mb-3">
@@ -168,18 +196,6 @@
 
 
        <!-- Shop Product End -->
-
-
-        <!-- <div class="container">
-            <h1>Product List</h1>
-    
-            <h2>All Products</h2>
-            <ul>
-                {% for product in products %}
-                <li><img class="img2" src="{{ product.image.url }}" alt="{{ product.name }}"> {{ product.name }} - ${{ product.price }}</li>
-                {% endfor %}
-            </ul>
-    
             <h2>Recommended Products</h2>
             <ul>
                 {% if recommended_products %}
@@ -189,8 +205,19 @@
                 {% else %}
                     <li>No recommendations available</li>
                 {% endif %}
-            </ul> -->
-            <!-- <h2>Machine Learning Features</h2>
+            </ul>
+
+
+
+               <!-- <div class="container">
+            <h1>Product List</h1>
+            <h2>All Products</h2>
+            <ul>
+                {% for product in products %}
+                <li><img class="img2" src="{{ product.image.url }}" alt="{{ product.name }}"> {{ product.name }} - ${{ product.price }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Machine Learning Features</h2>
             <div>
                 <h3>Dynamic Pricing</h3>
                 <p>{{ dynamic_pricing }}</p>
