@@ -144,61 +144,154 @@
     </div>
     <!-- Navbar End -->
 
-    <!-- Carousel and Dashboard Start -->
-    <div class="container-fluid mt-4">
-        <div class="row px-xl-5">
-            <!-- Dashboard Column -->
-            <div class="col-lg-3 d-none d-lg-block">
-                <div class="bg-light p-3 rounded shadow-sm animate__animated animate__fadeInLeft">
-                    <h4 class="font-weight-bold">Dashboard</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'home-url' %}" class="nav-link text-dark">Home</a></li>
-                        <li><a href="{% url 'product_list' %}" class="nav-link text-dark">Shop</a></li>
-                        <li><a href="{% url 'cart_detail' %}" class="nav-link text-dark">Shop Details</a></li>
-                        <li><a href="" class="nav-link text-dark">Shopping Cart</a></li>
-                        <li><a href="" class="nav-link text-dark">Checkout</a></li>
-                        <li><a href="" class="nav-link text-dark">Wishlist</a></li>
-                    </ul>
-                </div>
+ <!-- Carousel and Dashboard Start -->
+<div class="container-fluid mt-4">
+    <div class="row px-xl-5">
+        <!-- Dashboard Column -->
+        <div class="col-lg-3 d-none d-lg-block">
+            <div class="bg-light p-3 rounded shadow-sm animate__animated animate__fadeInLeft">
+                <h4 class="font-weight-bold">Dashboard</h4>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'home-url' %}" class="nav-link text-dark">Home</a></li>
+                    <li><a href="{% url 'product_list' %}" class="nav-link text-dark">Shop</a></li>
+                    <li><a href="{% url 'cart_detail' %}" class="nav-link text-dark">Shop Details</a></li>
+                    <li><a href="" class="nav-link text-dark">Shopping Cart</a></li>
+                    <li><a href="" class="nav-link text-dark">Checkout</a></li>
+                    <li><a href="" class="nav-link text-dark">Wishlist</a></li>
+                </ul>
             </div>
-            <div class="col-lg-9">
-        <div id="header-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for product in products %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <div class="row no-gutters">
-                        <div class="col-md-6">
-                            <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}">
-                        </div>
-                        <div class="col-md-6 d-none d-md-block">
-                            <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}">
-                        </div>
-                    </div>
-                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center animated fadeInUp">
-                        <p class="text-light font-weight-bold mb-3 animated fadeInDown">{{ product.name }}</p>
-                        <p class="text-light lead animated fadeIn">
-                            <span class="price text-primary">Price: ${{ product.price }}</span><br>
-                            <span class="discount text-danger">Discount: {{ product.discount }}%</span><br>
-                            <span class="final-price text-success">Final Price: ${{ product.final_price|floatformat:2 }}</span>
-                        </p>
-                        <div class="mt-4 d-flex flex-column align-items-center flex-md-row">
-                            <a href="{% url 'product_detail' product.id %}" class="btn btn-primary rounded animated fadeInUp mb-2 mb-md-0 mr-md-3">View Detail</a>
-                            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-light rounded animated fadeInUp">Add To Cart</a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            <a class="carousel-control-prev" href="#header-carousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon animated fadeInLeft" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon animated fadeInRight" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
-    <!-- End Carousel and Dashboard -->
+        <div class="col-lg-9">
+            <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for product in products %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="row no-gutters">
+                            <div class="col-md-6">
+                                <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}">
+                            </div>
+                            <div class="col-md-6 d-none d-md-block">
+                                <img class="d-block w-100 animated zoomIn" src="{{ product.image.url }}" alt="{{ product.title }}">
+                            </div>
+                        </div>
+                        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center animated fadeInUp">
+                            <p class="text-light font-weight-bold mb-3 animated fadeInDown">{{ product.name }}</p>
+                            <p class="text-light lead animated fadeIn">
+                                <span class="price text-primary">Price: ${{ product.price }}</span><br>
+                                <span class="discount text-danger">Discount: {{ product.discount }}%</span><br>
+                                <span class="final-price text-success">Final Price: ${{ product.final_price|floatformat:2 }}</span>
+                            </p>
+                            <div class="mt-4 d-flex flex-column align-items-center flex-md-row">
+                                <a href="{% url 'product_detail' product.id %}" class="btn btn-primary rounded animated fadeInUp mb-2 mb-md-0 mr-md-3">View Detail</a>
+                                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-light rounded animated fadeInUp">Add To Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#header-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon animated fadeInLeft" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon animated fadeInRight" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Carousel and Dashboard -->
+
+<style>
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+    
+    .shadow-sm {
+        box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+    }
+    
+    .animate__animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+    
+    .animate__fadeInLeft {
+        animation-name: fadeInLeft;
+    }
+    
+    .animate__fadeInUp {
+        animation-name: fadeInUp;
+    }
+    
+    .animate__fadeInRight {
+        animation-name: fadeInRight;
+    }
+    
+    .animate__fadeInDown {
+        animation-name: fadeInDown;
+    }
+    
+    .rounded {
+        border-radius: .25rem !important;
+    }
+    
+    .rounded-pill {
+        border-radius: 50px !important;
+    }
+    
+    .text-dark {
+        color: #343a40 !important;
+    }
+    
+    .text-light {
+        color: #f8f9fa !important;
+    }
+    
+    .font-weight-bold {
+        font-weight: 700 !important;
+    }
+    
+    .carousel-caption {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 10px;
+    }
+    
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        filter: invert(1);
+    }
+    
+    .btn-light {
+        background-color: #f8f9fa;
+        border-color: #f8f9fa;
+        color: #343a40;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+    
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    
+    .btn-light:hover, .btn-light:focus, .btn-light:active {
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+        color: #343a40;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add your custom JS here if needed
+    });
+</script>
 
             </div>
         </div>
