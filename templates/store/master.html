@@ -177,7 +177,7 @@
                     <div class="carousel-caption d-flex flex-column justify-content-center align-items-center animated fadeInUp">
                         <p class="text-light font-weight-bold mb-3 animated fadeInDown">{{ product.name }}</p>
                         <p class="text-light lead animated fadeIn">
-                            <span class="price text-primary">Price: ${{ product.price }}</span><br>
+                            <span class="price text-white">Price: ${{ product.price }}</span><br>
                             <span class="discount text-danger">Discount: {{ product.discount }}%</span><br>
                             <span class="final-price text-success">Final Price: ${{ product.final_price|floatformat:2 }}</span>
                         </p>
@@ -209,7 +209,7 @@
 .carousel-caption {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3); /* Adjust the alpha value for transparency */
+    background-color: rgba(0, 0, 0, 0.2); /* Adjust the alpha value for transparency */
     padding: 20px; /* Padding inside caption */
 }
 
