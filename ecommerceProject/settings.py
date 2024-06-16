@@ -62,8 +62,13 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+
 # Machine learning API
-ML_API_URL = 'http://localhost:8000/ml'
+# ML_API_URL = os.getenv('ML_API_URL', 'http://localhost:8000/ml/')
+
+
+ML_API_URL = os.getenv('ML_API_URL', 'https://maxistore.onrender.com/ml/')
 
 
 # Logging Configuration
@@ -166,7 +171,16 @@ AUTH_PASSWORD_VALIDATORS = [
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
+
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'False').lower() == 'true'
+SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '3600'))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = os.getenv('SECURE_HSTS_INCLUDE_SUBDOMAINS', 'True').lower() == 'true'
+SECURE_HSTS_PRELOAD = os.getenv('SECURE_HSTS_PRELOAD', 'True').lower() == 'true'
+
+
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (

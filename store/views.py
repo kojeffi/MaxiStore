@@ -448,10 +448,11 @@ import logging
 from django.conf import settings
 from django.shortcuts import render
 from .models import Product
+import os
 
 
 # Machine learning API
-ML_API_URL = 'http://localhost:8000/ml/'
+ML_API_URL = os.getenv('ML_API_URL', 'http://localhost:8000/ml/')
 
 logger = logging.getLogger(__name__)
 
