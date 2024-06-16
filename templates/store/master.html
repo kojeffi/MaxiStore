@@ -110,6 +110,9 @@
             text-align: center;
             padding: 20px;
             border-radius: 8px;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .carousel-caption h2 {
@@ -128,6 +131,11 @@
         .carousel-caption .btn-primary {
             font-size: 1rem;
             padding: 10px 20px;
+        }
+
+        .carousel-item.active .carousel-caption {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .carousel-control-prev,
@@ -249,9 +257,9 @@
                     <li class="nav-item">
                         <a href="{% url 'profile-url' %}">
                             {% if user.profile.profile_photo %}
-                                <img class="rounded-circle" src="{{ user.profile.profile_photo.url }}" alt="Profile Photo" style="height: 40px;">
-                            {% else %}
-                                <img class="rounded-circle" src="{% static 'images/avatar.jpg' %}" alt="Photo" style="height:                                40px;">
+                            <img class="rounded-circle" src="{{ user.profile.profile_photo.url }}" alt="Profile Photo" style="height: 40px;">
+                                {% else %}
+                                    <img class="rounded-circle" src="{% static 'images/avatar.jpg' %}" alt="Photo" style="height: 40px;">
                                 {% endif %}
                             </a>
                         </li>
@@ -271,13 +279,13 @@
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                     <img class="d-block w-100" src="{{ product.image.url }}" alt="{{ product.title }}" style="max-height: 70vh; object-fit: contain;">
                                     <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
-                                        <h2>{{ product.name }}</h2>
-                                        <p>
+                                        <h2 class="animate__animated animate__fadeInDown">{{ product.name }}</h2>
+                                        <p class="animate__animated animate__fadeInUp">
                                             <span class="price">Price: ${{ product.price }}</span><br>
                                             <span class="discount">Discount: {{ product.discount }}%</span><br>
                                             <span class="final-price">Final Price: ${{ product.final_price|floatformat:2 }}</span>
                                         </p>
-                                        <div class="mt-4">
+                                        <div class="mt-4 animate__animated animate__fadeIn">
                                             <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View Detail</a>
                                             <a href="{% url 'add_to_cart' product.id %}" class="btn btn-light">Add To Cart</a>
                                         </div>
@@ -298,6 +306,23 @@
             </div>
         </div>
         <!-- End Carousel and Dashboard -->
+        <script>
+            // Activate Owl Carousel
+            $(document).ready(function(){
+                $('#header-carousel').carousel();
+            });
+    
+            // Submit search form
+            function submitSearchForm() {
+                document.getElementById("search-form").submit();
+            }
+    
+            // Start voice search
+            function startVoiceSearch() {
+                // Code to start voice search
+                alert("Voice search feature coming soon!");
+            }
+        </script>
     {% block content %}
 
     {% endblock %}
