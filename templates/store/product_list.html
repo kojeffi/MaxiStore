@@ -195,20 +195,6 @@
 </script>
 
 
-       <!-- Shop Product End -->
-            <h2>Recommended Products</h2>
-            <ul>
-                {% if recommended_products %}
-                    {% for product in recommended_products %}
-                    <li><img class="img2" src="{{ product.image.url }}" alt="{{ product.name }}"> {{ product.name }} - ${{ product.price }}</li>
-                    {% endfor %}
-                {% else %}
-                    <li>No recommendations available</li>
-                {% endif %}
-            </ul>
-
-
-
                <!-- <div class="container">
             <h1>Product List</h1>
             <h2>All Products</h2>
