@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ")
 
 # Application definition
 INSTALLED_APPS = [
@@ -143,9 +143,11 @@ DATABASES = {
     }
 }
 
+
+
 database_url = os.environ.get('DATABASE_URL')
 if database_url:
-    DATABASES["default"] = dj_database_url.parse(database_url)
+    DATABASES["default"] = dj_database_url.parse('postgres://melianshop_mvpq_user:ij4rQIQUXMN9OrvjOru89d4LRYwhavZP@dpg-cpfgcvjtg9os73bdhbag-a.oregon-postgres.render.com/melianshop_mvpq')
 
 
 
