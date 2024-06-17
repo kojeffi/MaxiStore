@@ -332,6 +332,7 @@ def leave_review(request, product_id):
     return render(request, 'store/leave_review.html', {'form': form, 'product': product})
 
 
+
 # @login_required
 # def leave_review(request, product_id):
 #     product = get_object_or_404(Product, id=product_id)
