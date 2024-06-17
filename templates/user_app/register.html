@@ -84,6 +84,11 @@
                                 </h1>
                             </a>
                         </div>
+                        {% load django_bootstrap5 %}
+                        {% load widget_tweaks %}
+                            {% load static %}
+                            {% load crispy_forms_tags %}
+                            {% load crispy_forms_filters %}
                         <h3 class="card-title text-center">Create Account</h3>
                         <form method="post" action="{% url 'register-url' %}">
                             {% csrf_token %}
