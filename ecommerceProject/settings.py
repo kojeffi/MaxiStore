@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS",'').split(" ")
 
 # Application definition
 INSTALLED_APPS = [
@@ -145,7 +145,7 @@ DATABASES = {
 
 database_url = os.environ.get('DATABASE_URL')
 if database_url:
-    DATABASES["default"] = dj_database_url.parse(database_url)
+    DATABASES["default"] = dj_database_url.parse('postgres://ecommerce_odcq_user:Mrdz1sDhXodAqUdYzb8WXkzlQwgqg0AG@dpg-cpo4o6dds78s73babkog-a.oregon-postgres.render.com/ecommerce_odcq')
 
 
 
@@ -170,18 +170,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# # Secure Cookies
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_BROWSER_XSS_FILTER = True
+# Secure Cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
 
-# # Security settings
-# SECURE_BROWSER_XSS_FILTER = True
-# X_FRAME_OPTIONS = 'DENY'
-# SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'False').lower() == 'true'
-# SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '3600'))
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = os.getenv('SECURE_HSTS_INCLUDE_SUBDOMAINS', 'True').lower() == 'true'
-# SECURE_HSTS_PRELOAD = os.getenv('SECURE_HSTS_PRELOAD', 'True').lower() == 'true'
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'False').lower() == 'true'
+SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '3600'))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = os.getenv('SECURE_HSTS_INCLUDE_SUBDOMAINS', 'True').lower() == 'true'
+SECURE_HSTS_PRELOAD = os.getenv('SECURE_HSTS_PRELOAD', 'True').lower() == 'true'
 
 
 
@@ -256,6 +256,7 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'home-url'
 LOGIN_URL = 'login-url'
+
 LOGOUT_REDIRECT_URL = 'logout-url'
 
 
@@ -284,6 +285,9 @@ PAYPAL_MODE = os.getenv('PAYPAL_MODE', 'live')  # Default to 'live' if not set
 
 
 # machine Learning
+
+# Machine Learning Data Settings
+
 # User-item interaction data
 USER_ITEM_INTERACTIONS = [
     {"user_id": 1, "item_id": 101, "interaction": 5},
