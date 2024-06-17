@@ -87,9 +87,8 @@
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge">{{ cart_items_count }}</span>
             </a>
-        
             <!-- Add the notifications link and display -->
-            {% if request.user.is_authenticated %}
+            <!-- {% if request.user.is_authenticated %}
                 <a href="#" class="btn border animate__animated animate__bounceIn">
                     <i class="fas fa-bell text-primary"></i>
                     {% if request.user.notification_set.all %}
@@ -101,7 +100,7 @@
                         <li>{{ notification.message }}</li>
                     {% endfor %}
                 </ul>
-            {% endif %}
+            {% endif %} -->
         </div>
         
         </div>
