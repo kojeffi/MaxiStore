@@ -30,7 +30,6 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 # Application definition
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +44,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ml',
     'rest_framework',
-    'grappelli',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
