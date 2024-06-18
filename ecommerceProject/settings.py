@@ -30,6 +30,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 # Application definition
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,33 +45,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ml',
     'rest_framework',
-	'cloudinary',
-    'cloudinary_storage',
-
     'grappelli',
 ]
-
-# import os
-
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME','dnqsiqqu9'),
-#     'API_KEY': os.getenv('CLOUDINARY_API_KEY','671314852468814'),
-#     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET','q9aexJMZf9PCnq0ziEBMQMnMuYk'),
-# }
-
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-
-# import os
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
