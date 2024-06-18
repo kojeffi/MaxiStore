@@ -50,7 +50,18 @@ INSTALLED_APPS = [
     'grappelli',
 ]
 
-import os
+# import os
+
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME','dnqsiqqu9'),
+#     'API_KEY': os.getenv('CLOUDINARY_API_KEY','671314852468814'),
+#     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET','q9aexJMZf9PCnq0ziEBMQMnMuYk'),
+# }
+
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# import os
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
